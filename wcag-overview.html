@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en-CA" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WCAG Overview: 2.0, 2.1 and 2.2 Explained | SiteComply</title>
+<meta name="description" content="A plain-language overview of WCAG accessibility guidelines: POUR principles, A/AA/AAA levels, and what's new in WCAG 2.1 and 2.2.">
+<link rel="canonical" href="https://sitecomply.ca/wcag-overview.html">
+<meta name="theme-color" content="#0f6b5c">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SiteComply">
+<meta property="og:title" content="WCAG Overview: 2.0, 2.1 and 2.2 Explained | SiteComply">
+<meta property="og:description" content="A plain-language overview of WCAG accessibility guidelines: POUR principles, A/AA/AAA levels, and what's new in WCAG 2.1 and 2.2.">
+<meta property="og:url" content="https://sitecomply.ca/wcag-overview.html">
+<meta property="og:image" content="https://sitecomply.ca/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a class="logo" href="index.html" aria-label="SiteComply home"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SiteComply</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links" id="nav-links"><li><a href="index.html#services">Services</a></li><li><a href="index.html#how">How it works</a></li><li><a href="about.html">About</a></li><li><a href="resources.html" aria-current="page">Resources</a></li><li><a href="contact.html">Contact</a></li><li class="nav-cta"><a class="btn btn-primary btn-sm" href="index.html#scan">Get a free scan</a></li></ul>
+  </nav>
+</header>
+<main id="main" tabindex="-1">
+
+<section class="page-hero"><div class="container">
+  <p class="crumbs"><a href="index.html">Home</a> / <a href="resources.html">Resources</a> / WCAG Overview</p>
+  <h1>WCAG overview</h1>
+  <p>The Web Content Accessibility Guidelines explained: the principles, the levels, and what changed between versions.</p>
+</div></section>
+<section class="section" style="padding-top:24px"><div class="container prose">
+  <h2 style="margin-top:0">What is WCAG?</h2>
+  <p>WCAG is the international standard for web accessibility, published by the World Wide Web Consortium (W3C). It is made up of testable success criteria. Ontario's AODA references WCAG 2.0, and many governments worldwide use the same standard.</p>
+  <h2>The four principles: POUR</h2>
+  <ul>
+    <li><strong>Perceivable.</strong> People can see or hear the content. Images have alt text, videos have captions, and text has enough contrast.</li>
+    <li><strong>Operable.</strong> Everything works with a keyboard, users have enough time, and nothing flashes in a way that can cause seizures.</li>
+    <li><strong>Understandable.</strong> Content is readable, pages behave predictably, and forms help people avoid and fix mistakes.</li>
+    <li><strong>Robust.</strong> Code works reliably with assistive technologies such as screen readers.</li>
+  </ul>
+  <h2>Conformance levels</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Level</th><th scope="col">What it means</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>The minimum. Removes the most severe barriers.</td></tr>
+      <tr><td>AA</td><td>The legal standard in Ontario and most jurisdictions. Includes everything in Level A.</td></tr>
+      <tr><td>AAA</td><td>The highest level. Not required as a whole for entire sites.</td></tr>
+    </tbody>
+  </table></div>
+  <h2>WCAG versions</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Version</th><th scope="col">Published</th><th scope="col">Highlights</th></tr></thead>
+    <tbody>
+      <tr><td>WCAG 2.0</td><td>2008</td><td>The version required by AODA.</td></tr>
+      <tr><td>WCAG 2.1</td><td>2018</td><td>Adds criteria for mobile, low vision and cognitive accessibility.</td></tr>
+      <tr><td>WCAG 2.2</td><td>2023</td><td>Adds criteria for focus visibility, touch targets and accessible sign-in.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Each version builds on the one before, so a site that meets WCAG 2.2 AA also meets 2.1 AA and 2.0 AA. The one exception is that 2.2 retired criterion 4.1.1 Parsing.</p>
+  <h3>Key additions in WCAG 2.1 (Level AA)</h3>
+  <ul>
+    <li><strong>Reflow (1.4.10).</strong> Content works at 400% zoom without scrolling in two directions.</li>
+    <li><strong>Non-text contrast (1.4.11).</strong> Buttons, form borders and icons need 3:1 contrast.</li>
+    <li><strong>Text spacing (1.4.12).</strong> Content survives users increasing line and letter spacing.</li>
+    <li><strong>Content on hover or focus (1.4.13).</strong> Tooltips and pop-ups can be dismissed and don't vanish unexpectedly.</li>
+    <li><strong>Orientation (1.3.4)</strong> and <strong>identify input purpose (1.3.5).</strong> Pages work in portrait and landscape, and personal-data fields support autofill.</li>
+    <li><strong>Status messages (4.1.3).</strong> Screen readers announce messages such as "Form submitted".</li>
+  </ul>
+  <h3>Key additions in WCAG 2.2 (Level AA)</h3>
+  <ul>
+    <li><strong>Focus not obscured (2.4.11).</strong> Sticky headers and banners can't hide the focused element.</li>
+    <li><strong>Dragging movements (2.5.7).</strong> Anything done by dragging can also be done with a single click or tap.</li>
+    <li><strong>Target size (2.5.8).</strong> Clickable targets are at least 24 by 24 CSS pixels, or well spaced.</li>
+    <li><strong>Consistent help (3.2.6).</strong> Help options appear in the same place across pages.</li>
+    <li><strong>Redundant entry (3.3.7).</strong> Users aren't asked to re-enter information they already gave.</li>
+    <li><strong>Accessible authentication (3.3.8).</strong> Sign-in doesn't rely on memory or puzzle tests alone.</li>
+  </ul>
+  <div class="callout"><p>SiteComply audits against WCAG 2.0 AA for AODA compliance and reports 2.1 and 2.2 findings separately, so you can plan ahead without confusing legal requirements with best practice.</p></div>
+</div></section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="index.html"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SiteComply</span></a>
+        <p>Accessibility compliance auditing, remediation and monitoring for Ontario municipalities and public sector organizations.</p>
+        <p>Ontario-based · Canadian-owned<br><a href="mailto:matt@sitecomply.ca">matt@sitecomply.ca</a></p>
+      </div>
+      <div><h2>Services</h2><ul>
+        <li><a href="index.html#services">Accessibility Audits</a></li>
+        <li><a href="index.html#services">Remediation Support</a></li>
+        <li><a href="index.html#services">Ongoing Monitoring</a></li>
+        <li><a href="index.html#services">Staff Training</a></li></ul></div>
+      <div><h2>Resources</h2><ul>
+        <li><a href="aoda-guide.html">AODA Guide</a></li>
+        <li><a href="wcag-overview.html">WCAG Overview</a></li>
+        <li><a href="compliance-checklist.html">Compliance Checklist</a></li>
+        <li><a href="resources.html">All resources</a></li></ul></div>
+      <div><h2>Company</h2><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="accessibility.html">Accessibility Statement</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <p style="margin:0">© <span data-year>2026</span> SiteComply. All rights reserved. Serving Ontario municipalities and public sector organizations.</p>
+      <div class="foot-tags" aria-label="Standards we audit against"><span>AODA</span><span>WCAG 2.0 AA</span><span>WCAG 2.1</span><span>WCAG 2.2</span></div>
+    </div>
+  </div>
+</footer>
+<script src="assets/main.js" defer></script>
+</body>
+</html>
