@@ -112,7 +112,7 @@ def page(fname, title, desc, active, body, schema=""):
     with open(os.path.join(ROOT, fname), "w") as f: f.write(html)
 
 def scan_form(id_prefix="scan", heading="Request your free scan"):
-    return f'''<form class="form" data-sc-form action="{FORM_ACTION}" method="POST" novalidate aria-labelledby="{id_prefix}-h" data-success="Thanks! Your free scan request is in. We'll email your results within one business day.">
+    return f'''<form class="form" data-sc-form action="{FORM_ACTION}" method="POST" novalidate aria-labelledby="{id_prefix}-h" data-success="Thanks, we&#39;ve received your request. We&#39;ll review your website and be in touch with your free scan report.">
   <h3 id="{id_prefix}-h">{heading}</h3>
   <p class="hint">Fields marked <span class="req" aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
   <input type="hidden" name="_subject" value="New free scan request: SiteComply">
@@ -128,9 +128,12 @@ def scan_form(id_prefix="scan", heading="Request your free scan"):
   <div class="field"><label for="{id_prefix}-url">Website URL <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-url" name="Website" type="url" inputmode="url" autocomplete="url" placeholder="https://oakville.ca" required aria-describedby="{id_prefix}-url-err"><p class="err" id="{id_prefix}-url-err">Please enter your website address, for example https://oakville.ca.</p></div>
   <button class="btn btn-primary" type="submit">Request free scan</button>
   <div class="form-status" role="status" aria-live="polite" tabindex="-1"></div>
-  <p class="form-note">No cost, no commitment. Results within one business day.</p>
+  <p class="form-note">No cost, no commitment. Public pages only.</p>
 </form>'''
 
+I_LOCK = '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'
+I_GLOBE = '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/>'
+I_SHIELD = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>'
 # ---------------- HOME ----------------
 _ic = lambda p: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'
 bld = _ic('<path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/>')
@@ -164,7 +167,7 @@ faq = [
  ("Does AODA apply to my municipality?", "Yes. All Ontario public sector organizations, including municipalities, school boards, hospitals, colleges and provincial agencies, must comply with the Integrated Accessibility Standards Regulation (IASR) under AODA. That includes meeting WCAG 2.0 Level AA on their public websites and web content."),
  ("What is WCAG and which version applies?", "WCAG (Web Content Accessibility Guidelines) is the international standard for web accessibility. Ontario's AODA currently mandates WCAG 2.0 Level AA. SiteComply also evaluates against WCAG 2.1 and 2.2, so your site is ready when the standard is updated and works better for everyone today."),
  ("How long does an audit take?", "A typical audit takes five to ten business days, depending on the size and complexity of your website. You receive a detailed report with prioritized findings and remediation guidance."),
- ("What does the free scan include?", "The free scan is an automated review of your homepage and key pages. It identifies common accessibility barriers and gives you a snapshot of your current compliance status, with no obligation."),
+ ("What does the free scan include?", "The free scan is an automated review of your homepage and key pages. It identifies common accessibility barriers and gives you a snapshot of your current compliance status, with no obligation. The scan covers only pages that are publicly available on your website."),
  ("Is an automated scan enough to be compliant?", "No. Automated tools reliably catch only a portion of WCAG issues. Our full audits combine automated scanning with manual testing using a keyboard and screen readers, which is how real residents experience your site."),
  ("Do you check PDFs and other documents?", "Yes. Documents posted on your website are web content under AODA. We review PDFs, Word files and forms for tagging, reading order, alternative text and contrast, and help your team fix or replace them."),
  ("Can you work with our existing web vendor or CMS?", "Yes. We work alongside your internal team or development partners on any platform, including eSolutions, Granicus (govAccess), WordPress, Drupal and custom builds. We provide code-level guidance and verify each fix."),
@@ -187,7 +190,7 @@ home = f'''
       <ul class="hero-meta">
         <li>{CHECK}AODA &amp; WCAG 2.0 AA</li>
         <li>{CHECK}Ontario-based &amp; Canadian-owned</li>
-        <li>{CHECK}Free scan in 1 business day</li>
+        <li>{CHECK}Free, no-commitment scan</li>
       </ul>
     </div>
     <figure class="report" aria-labelledby="report-cap">
@@ -260,8 +263,8 @@ home = f'''
       <p>From your first free scan to a site that stays compliant.</p>
     </div>
     <ol class="steps">
-      <li class="reveal"><h3>Request your free scan</h3><p>Submit your website URL and we'll run a preliminary accessibility scan within one business day. No commitment required.</p><span class="when">Day 1</span></li>
-      <li class="reveal"><h3>Review your results</h3><p>We walk you through the findings, explain your compliance gaps and recommend a path forward tailored to your organization's needs and timeline.</p><span class="when">Week 1</span></li>
+      <li class="reveal"><h3>Request your free scan</h3><p>Submit your website URL and we'll run a preliminary accessibility scan, no commitment required.</p><span class="when">Free</span></li>
+      <li class="reveal"><h3>Review your results</h3><p>We walk you through the findings, explain your compliance gaps and recommend a path forward tailored to your organization's needs and timeline.</p><span class="when">Walkthrough</span></li>
       <li class="reveal"><h3>Get compliant and stay compliant</h3><p>We support your team through remediation and provide ongoing monitoring so your site stays compliant as it evolves.</p><span class="when">Ongoing</span></li>
     </ol>
   </div>
@@ -285,15 +288,31 @@ home = f'''
         <span class="kicker">Free site scan</span>
         <h2 id="scan-h">Get your free site scan</h2>
         <p class="lede">Find out where your website stands against AODA and WCAG requirements. No cost, no commitment.</p>
+        <p>The scan only reviews what's already public on your website, nothing behind a login, and collects no personal information.</p>
         <ul>
           <li>{CHECK}Automated review of your homepage and key pages</li>
           <li>{CHECK}Snapshot of your current compliance status</li>
           <li>{CHECK}Plain-language summary of the top issues</li>
-          <li>{CHECK}Results in your inbox within one business day</li>
+          <li>{CHECK}Findings shared only with you</li>
         </ul>
         <p style="margin-top:24px">Prefer email? Write to <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
       </div>
       {scan_form()}
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="privacy" aria-labelledby="priv-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Your data</span>
+      <h2 id="priv-h">Privacy and security</h2>
+      <p>What our free scan looks at, and what we do with your information.</p>
+    </div>
+    <div class="grid-3">
+      <article class="card reveal">{icon(I_GLOBE)}<h3>Public pages only</h3><p>Our free scan reviews only the public pages of your website, the same pages any resident can visit. It does not access anything behind a login, and it does not collect personal information from your site.</p></article>
+      <article class="card reveal">{icon(I_LOCK)}<h3>Only what you enter</h3><p>If you request a scan, the only information we collect is what you enter in the form: your name, work email, organization and website address. We use it only to run your scan and contact you about the results. We do not sell or share it.</p></article>
+      <article class="card reveal">{icon(I_SHIELD)}<h3>Findings stay with you</h3><p>Your scan findings are shared only with you. Questions about privacy? Email <a href="mailto:{EMAIL}">{EMAIL}</a>.</p></article>
     </div>
   </div>
 </section>
@@ -329,7 +348,7 @@ about = f'''
 </div></section>
 <section class="section alt"><div class="container center">
   <h2>Ready to see where you stand?</h2>
-  <p style="font-size:1.1rem;max-width:56ch;margin:0 auto 24px">Start with a free scan of your website. Results arrive in one business day.</p>
+  <p style="font-size:1.1rem;max-width:56ch;margin:0 auto 24px">Start with a free, no-commitment scan of your website.</p>
   <div class="btn-row"><a class="btn btn-primary" href="index.html#scan">Get a free site scan</a><a class="btn btn-ghost" href="contact.html">Contact us</a></div>
 </div></section>
 '''
