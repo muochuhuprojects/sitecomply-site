@@ -9,7 +9,7 @@ TODAY = datetime.date.today()
 UPDATED = TODAY.strftime("%B %-d, %Y")
 
 CHECK = '<svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>'
-LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#2fc4a6"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#052a22" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def icon(path):
     return f'<div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{path}</svg></div>'
 I_SCALE = '<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>'
@@ -83,7 +83,7 @@ def page(fname, title, desc, active, body, schema=""):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{canon}">
-<meta name="theme-color" content="#0f6b5c">
+<meta name="theme-color" content="#0b1624">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SiteComply">
 <meta property="og:title" content="{title}">
@@ -121,7 +121,7 @@ def scan_form(id_prefix="scan", heading="Request your free scan"):
   <div class="hp" aria-hidden="true"><label for="{id_prefix}-honey">Leave this empty</label><input id="{id_prefix}-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
   <div class="row-2">
     <div class="field"><label for="{id_prefix}-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-name" name="Name" type="text" autocomplete="name" placeholder="Jane Smith" required aria-describedby="{id_prefix}-name-err"><p class="err" id="{id_prefix}-name-err">Please enter your name.</p></div>
-    <div class="field"><label for="{id_prefix}-org">Municipality or organization <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-org" name="Organization" type="text" autocomplete="organization" placeholder="Town of Oakville" required aria-describedby="{id_prefix}-org-err"><p class="err" id="{id_prefix}-org-err">Please enter your organization.</p></div>
+    <div class="field"><label for="{id_prefix}-org">Organization <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-org" name="Organization" type="text" autocomplete="organization" placeholder="Town of Oakville" required aria-describedby="{id_prefix}-org-err"><p class="err" id="{id_prefix}-org-err">Please enter your organization.</p></div>
   </div>
   <div class="field"><label for="{id_prefix}-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-email" name="email" type="email" autocomplete="email" placeholder="jane@oakville.ca" required aria-describedby="{id_prefix}-email-err"><p class="err" id="{id_prefix}-email-err">Please enter a valid email address.</p></div>
   <div class="field"><label for="{id_prefix}-url">Website URL <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-url" name="Website" type="url" inputmode="url" autocomplete="url" placeholder="https://oakville.ca" required aria-describedby="{id_prefix}-url-err"><p class="err" id="{id_prefix}-url-err">Please enter your website address, for example https://oakville.ca.</p></div>
@@ -131,24 +131,30 @@ def scan_form(id_prefix="scan", heading="Request your free scan"):
 </form>'''
 
 # ---------------- HOME ----------------
+_ic = lambda p: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'
+bld = _ic('<path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/>')
+sch = _ic('<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>')
+hos = _ic('<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/>')
+cap = _ic('<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>')
+gov = _ic('<path d="M3 21h18"/><path d="M4 10h16"/><path d="M12 3 3 8h18z"/><path d="M6 10v8M10 10v8M14 10v8M18 10v8"/>')
 weeks = [64,58,51,46,40,35,31]
 W,H,P = 320,120,14
 mx,mn = 70,20
 pts = [(P + i*(W-2*P)/6, P + (mx-v)*(H-2*P)/(mx-mn)) for i,v in enumerate(weeks)]
 line = " ".join(f"{x:.1f},{y:.1f}" for x,y in pts)
 area = f"M{pts[0][0]:.1f},{H-P} L" + " L".join(f"{x:.1f},{y:.1f}" for x,y in pts) + f" L{pts[-1][0]:.1f},{H-P} Z"
-dots = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.5" fill="#fff" stroke="#0f6b5c" stroke-width="2"/>' for x,y in pts)
-wk = "".join(f'<text x="{x:.1f}" y="{H+4}" text-anchor="middle" font-size="10" fill="#51637a">W{i+1}</text>' for i,(x,y) in enumerate(pts))
+dots = "".join(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="3.5" class="c-dot" stroke-width="2"/>' for x,y in pts)
+wk = "".join(f'<text x="{x:.1f}" y="{H+4}" text-anchor="middle" font-size="10" class="c-txt">W{i+1}</text>' for i,(x,y) in enumerate(pts))
 chart = f'''<svg viewBox="0 0 {W} {H+10}" role="img" aria-labelledby="chart-t chart-d">
 <title id="chart-t">Open issues over 7 weeks</title>
 <desc id="chart-d">Open accessibility issues fell each week, from 64 in week 1 to 31 in week 7.</desc>
-<defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0f6b5c" stop-opacity=".22"/><stop offset="1" stop-color="#0f6b5c" stop-opacity="0"/></linearGradient></defs>
-<line x1="{P}" x2="{W-P}" y1="{H-P}" y2="{H-P}" stroke="#dfe6ee"/>
+<defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2fc4a6" stop-opacity=".28"/><stop offset="1" stop-color="#2fc4a6" stop-opacity="0"/></linearGradient></defs>
+<line class="c-axis" x1="{P}" x2="{W-P}" y1="{H-P}" y2="{H-P}"/>
 <path d="{area}" fill="url(#g)"/>
-<polyline points="{line}" fill="none" stroke="#0f6b5c" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+<polyline class="c-line" points="{line}" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
 {dots}{wk}
-<text x="{pts[0][0]+6:.1f}" y="{pts[0][1]-6:.1f}" font-size="11" font-weight="700" fill="#26394d">64</text>
-<text x="{pts[-1][0]-4:.1f}" y="{pts[-1][1]-9:.1f}" text-anchor="end" font-size="11" font-weight="700" fill="#0f6b5c">31</text>
+<text x="{pts[0][0]+6:.1f}" y="{pts[0][1]-6:.1f}" font-size="11" font-weight="700" class="c-val">64</text>
+<text x="{pts[-1][0]-4:.1f}" y="{pts[-1][1]-9:.1f}" text-anchor="end" font-size="11" font-weight="700" class="c-val end">31</text>
 </svg>'''
 issues = [("Missing alt text",14),("Low colour contrast",9),("Missing form labels",5),("PDF not tagged",3)]
 issue_li = "".join(f'<li><span>{n}</span><b>{c}</b><span class="bar" aria-hidden="true"><i style="width:{c/14*100:.0f}%"></i></span></li>' for n,c in issues)
@@ -170,20 +176,20 @@ home = f'''
 <section class="hero">
   <div class="container hero-grid">
     <div>
-      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Ontario-based · Canadian-owned</span>
-      <h1>Accessibility compliance for Ontario's public sector</h1>
-      <p class="lede">SiteComply helps Ontario municipalities and public sector organizations meet their AODA obligations and WCAG standards with audits, remediation and ongoing monitoring.</p>
-      <div class="hero-actions">
+      <span class="eyebrow"><span class="dot" aria-hidden="true"></span>Accessibility compliance for governments in Ontario</span>
+      <h1>Make your website AODA compliant</h1>
+      <p class="lede">SiteComply helps Ontario municipalities and public sector organizations meet their AODA obligations and WCAG standards, with audits, fixes and ongoing monitoring.</p>
+      <div class="btn-row">
         <a class="btn btn-primary" href="#scan">Get a free site scan</a>
         <a class="btn btn-ghost" href="#how">See how it works</a>
       </div>
       <ul class="hero-meta">
-        <li>{CHECK}Results in one business day</li>
-        <li>{CHECK}No cost, no commitment</li>
-        <li>{CHECK}WCAG 2.0, 2.1 &amp; 2.2 AA</li>
+        <li>{CHECK}AODA &amp; WCAG 2.0 AA</li>
+        <li>{CHECK}Ontario-based &amp; Canadian-owned</li>
+        <li>{CHECK}Free scan in 1 business day</li>
       </ul>
     </div>
-    <figure class="report" style="margin:0" aria-labelledby="report-cap">
+    <figure class="report" aria-labelledby="report-cap">
       <div class="report-head">
         <span class="report-title" id="report-cap">Sample compliance report</span>
         <span class="badge">WCAG 2.0 AA · 2.1 · 2.2</span>
@@ -191,7 +197,7 @@ home = f'''
       <div class="stats">
         <div class="stat"><b>142</b><span>Pages scanned</span></div>
         <div class="stat"><b>31</b><span>Open issues</span></div>
-        <div class="stat good"><b>18</b><span>Resolved this month</span></div>
+        <div class="stat good"><b>18</b><span>Fixed this month</span></div>
       </div>
       <p class="chart-label">Open issues over 7 weeks</p>
       <div class="chart">{chart}</div>
@@ -203,8 +209,10 @@ home = f'''
 
 <div class="trust">
   <div class="container trust-inner">
-    <strong>Built for Ontario's public sector:</strong>
-    <span>Municipalities</span><span>School boards</span><span>Hospitals</span><span>Colleges &amp; universities</span><span>Provincial agencies</span>
+    <p>Built for Ontario municipalities and public sector organizations</p>
+    <ul class="chips">
+      <li>{bld}Municipalities</li><li>{sch}School boards</li><li>{hos}Hospitals</li><li>{cap}Colleges &amp; universities</li><li>{gov}Provincial agencies</li>
+    </ul>
   </div>
 </div>
 
@@ -213,6 +221,7 @@ home = f'''
     <div class="section-head reveal">
       <span class="kicker">Why it matters</span>
       <h2 id="why-h">Why accessibility compliance matters for your municipality</h2>
+      <p>Three reasons Ontario public sector organizations can't put this off.</p>
     </div>
     <div class="grid-3">
       <article class="card reveal">{icon(I_SCALE)}<h3>It's the law</h3><p>The Accessibility for Ontarians with Disabilities Act (AODA) requires all Ontario public sector organizations to meet WCAG 2.0 Level AA. Non-compliance can result in significant fines and reputational risk.</p></article>
@@ -222,7 +231,7 @@ home = f'''
   </div>
 </section>
 
-<section class="section soft" id="services" aria-labelledby="svc-h">
+<section class="section alt" id="services" aria-labelledby="svc-h">
   <div class="container">
     <div class="section-head reveal">
       <span class="kicker">Services</span>
@@ -230,13 +239,13 @@ home = f'''
       <p>End-to-end accessibility compliance services tailored to Ontario's public sector, from the first audit to ongoing monitoring.</p>
     </div>
     <div class="grid-2">
-      <article class="card reveal"><span class="tag">Core</span>{icon(I_SEARCH)}<h3>Accessibility Audits</h3><p>A thorough review of your website against WCAG 2.0, 2.1 and 2.2 Level AA criteria. You get a prioritized report of issues with clear remediation guidance.</p>
+      <article class="card reveal"><div class="card-top">{icon(I_SEARCH).replace('class="icon"','class="icon"')}<span class="tag">Core</span></div><h3>Accessibility Audits</h3><p>A thorough review of your website against WCAG 2.0, 2.1 and 2.2 Level AA criteria. You get a prioritized report of issues with clear remediation guidance.</p>
         <ul><li>{CHECK}Automated and manual testing</li><li>{CHECK}Keyboard and screen reader checks</li><li>{CHECK}PDFs and documents included</li></ul></article>
-      <article class="card reveal"><span class="tag">Core</span>{icon(I_WRENCH)}<h3>Remediation Support</h3><p>We work alongside your team or development partners to fix identified issues, with code-level guidance, QA review and sign-off on resolved items.</p>
+      <article class="card reveal"><div class="card-top">{icon(I_WRENCH).replace('class="icon"','class="icon"')}<span class="tag">Core</span></div><h3>Remediation Support</h3><p>We work alongside your team or development partners to fix identified issues, with code-level guidance, QA review and sign-off on resolved items.</p>
         <ul><li>{CHECK}Works with any CMS or vendor</li><li>{CHECK}Fixes verified before sign-off</li><li>{CHECK}Documentation for your compliance report</li></ul></article>
-      <article class="card reveal"><span class="tag">Core</span>{icon(I_PULSE)}<h3>Ongoing Monitoring</h3><p>Continuous automated scanning keeps your site compliant as content changes. Monthly reports flag new issues before they become compliance risks.</p>
+      <article class="card reveal"><div class="card-top">{icon(I_PULSE).replace('class="icon"','class="icon"')}<span class="tag">Core</span></div><h3>Ongoing Monitoring</h3><p>Continuous automated scanning keeps your site compliant as content changes. Monthly reports flag new issues before they become compliance risks.</p>
         <ul><li>{CHECK}Monthly progress reports</li><li>{CHECK}Alerts on new issues</li><li>{CHECK}Trend tracking over time</li></ul></article>
-      <article class="card reveal"><span class="tag addon">Add-on</span>{icon(I_CAP)}<h3>Staff Training</h3><p>Practical workshops for content editors, developers and communications staff on creating and maintaining accessible digital content in line with AODA requirements.</p>
+      <article class="card reveal"><div class="card-top">{icon(I_CAP).replace('class="icon"','class="icon"')}<span class="tag addon">Add-on</span></div><h3>Staff Training</h3><p>Practical workshops for content editors, developers and communications staff on creating and maintaining accessible digital content in line with AODA requirements.</p>
         <ul><li>{CHECK}Role-specific sessions</li><li>{CHECK}Accessible documents and PDFs</li><li>{CHECK}Remote or on-site</li></ul></article>
     </div>
   </div>
@@ -244,9 +253,10 @@ home = f'''
 
 <section class="section" id="how" aria-labelledby="how-h">
   <div class="container">
-    <div class="section-head center reveal">
+    <div class="section-head reveal">
       <span class="kicker">How it works</span>
       <h2 id="how-h">Three steps to a compliant website</h2>
+      <p>From your first free scan to a site that stays compliant.</p>
     </div>
     <ol class="steps">
       <li class="reveal"><h3>Request your free scan</h3><p>Submit your website URL and we'll run a preliminary accessibility scan within one business day. No commitment required.</p><span class="when">Day 1</span></li>
@@ -256,11 +266,12 @@ home = f'''
   </div>
 </section>
 
-<section class="section soft" id="faq" aria-labelledby="faq-h">
+<section class="section alt" id="faq" aria-labelledby="faq-h">
   <div class="container">
-    <div class="section-head center reveal">
+    <div class="section-head reveal">
       <span class="kicker">FAQ</span>
       <h2 id="faq-h">Frequently asked questions</h2>
+      <p>Straight answers about AODA, WCAG and how we work.</p>
     </div>
     <div class="faq">{faq_html}</div>
   </div>
@@ -270,7 +281,7 @@ home = f'''
   <div class="container">
     <div class="cta">
       <div>
-        <span class="kicker" style="color:#9fe3d2">Free site scan</span>
+        <span class="kicker">Free site scan</span>
         <h2 id="scan-h">Get your free site scan</h2>
         <p class="lede">Find out where your website stands against AODA and WCAG requirements. No cost, no commitment.</p>
         <ul>
@@ -308,17 +319,17 @@ about = f'''
       <li><strong>Collaborative.</strong> We work with your staff and vendors, not around them, and we leave your team more capable than we found it.</li>
     </ul>
   </div>
-  <div class="grid-2" style="grid-template-columns:1fr 1fr">
+  <div class="grid-2">
     <div class="card reveal">{icon(I_MAPLE)}<h3>Canadian-owned</h3><p>Ontario-based, with data and reports handled in Canada.</p></div>
     <div class="card reveal">{icon(I_BOOK)}<h3>Public sector focus</h3><p>We know the IASR, council timelines and procurement.</p></div>
     <div class="card reveal">{icon(I_LAYERS)}<h3>WCAG 2.0 to 2.2</h3><p>Compliant today and ready for tomorrow's standard.</p></div>
     <div class="card reveal">{icon(I_EYE)}<h3>Lived experience</h3><p>Testing reflects how residents actually use your site.</p></div>
   </div>
 </div></section>
-<section class="section soft"><div class="container" style="text-align:center">
+<section class="section alt"><div class="container center">
   <h2>Ready to see where you stand?</h2>
-  <p style="color:var(--ink-2);font-size:1.1rem;max-width:56ch;margin:0 auto 24px">Start with a free scan of your website. Results arrive in one business day.</p>
-  <a class="btn btn-primary" href="index.html#scan">Get a free site scan</a> <a class="btn btn-ghost" href="contact.html">Contact us</a>
+  <p style="font-size:1.1rem;max-width:56ch;margin:0 auto 24px">Start with a free scan of your website. Results arrive in one business day.</p>
+  <div class="btn-row"><a class="btn btn-primary" href="index.html#scan">Get a free site scan</a><a class="btn btn-ghost" href="contact.html">Contact us</a></div>
 </div></section>
 '''
 page("about.html", "About SiteComply | Ontario Accessibility Compliance", "SiteComply is an Ontario-based, Canadian-owned accessibility firm helping municipalities and public sector organizations meet AODA and WCAG.", "about", about)
@@ -331,9 +342,9 @@ contact = f'''
   <p>Questions about AODA, a request for proposal, or ready to start an audit? Send us a message and we'll reply within one business day.</p>
 </div></section>
 <section class="section" style="padding-top:32px"><div class="container split">
-  <div>
-    <div class="card" style="margin-bottom:20px">{icon(I_MAIL)}<h3>Email</h3><p><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>
-    <div class="card" style="margin-bottom:20px">{icon(I_CLOCK)}<h3>Response time</h3><p>Within one business day, Monday to Friday, Eastern Time.</p></div>
+  <div class="stack">
+    <div class="card">{icon(I_MAIL)}<h3>Email</h3><p><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>
+    <div class="card">{icon(I_CLOCK)}<h3>Response time</h3><p>Within one business day, Monday to Friday, Eastern Time.</p></div>
     <div class="card">{icon(I_MAPLE)}<h3>Service area</h3><p>Serving municipalities and public sector organizations across Ontario, remotely and on-site.</p></div>
   </div>
   <form class="form" data-sc-form action="{FORM_ACTION}" method="POST" novalidate aria-labelledby="contact-h" data-success="Thanks! Your message has been sent. We'll reply within one business day.">
@@ -370,9 +381,9 @@ res = f'''
   <p>Plain-language guides to help Ontario public sector teams understand their obligations and keep their websites accessible.</p>
 </div></section>
 <section class="section" style="padding-top:32px"><div class="container grid-3">
-  <a class="card reveal" href="aoda-guide.html" style="text-decoration:none;color:inherit">{icon(I_BOOK)}<h3>AODA Guide</h3><p>Who AODA applies to, what the IASR requires for websites, and the key deadlines.</p><p style="margin-top:16px;color:var(--brand);font-weight:600">Read the guide →</p></a>
-  <a class="card reveal" href="wcag-overview.html" style="text-decoration:none;color:inherit">{icon(I_LAYERS)}<h3>WCAG Overview</h3><p>The four principles, conformance levels, and what changed in WCAG 2.1 and 2.2.</p><p style="margin-top:16px;color:var(--brand);font-weight:600">Read the overview →</p></a>
-  <a class="card reveal" href="compliance-checklist.html" style="text-decoration:none;color:inherit">{icon(I_LIST)}<h3>Compliance Checklist</h3><p>An interactive checklist your team can work through. Progress saves in your browser.</p><p style="margin-top:16px;color:var(--brand);font-weight:600">Open the checklist →</p></a>
+  <a class="card reveal" href="aoda-guide.html" style="text-decoration:none;color:inherit">{icon(I_BOOK)}<h3>AODA Guide</h3><p>Who AODA applies to, what the IASR requires for websites, and the key deadlines.</p><p class="more">Read the guide →</p></a>
+  <a class="card reveal" href="wcag-overview.html" style="text-decoration:none;color:inherit">{icon(I_LAYERS)}<h3>WCAG Overview</h3><p>The four principles, conformance levels, and what changed in WCAG 2.1 and 2.2.</p><p class="more">Read the overview →</p></a>
+  <a class="card reveal" href="compliance-checklist.html" style="text-decoration:none;color:inherit">{icon(I_LIST)}<h3>Compliance Checklist</h3><p>An interactive checklist your team can work through. Progress saves in your browser.</p><p class="more">Open the checklist →</p></a>
 </div></section>
 '''
 page("resources.html", "Accessibility Resources | SiteComply", "Free AODA and WCAG resources for Ontario public sector teams: AODA guide, WCAG overview and an interactive compliance checklist.", "resources", res)
@@ -509,7 +520,7 @@ checklist = f'''
 </div></section>
 <section class="section" style="padding-top:24px"><div class="container prose" data-checklist>
   <div class="progress" aria-live="polite"><strong data-progress-text>0 complete</strong><div class="progress-bar" aria-hidden="true"><i data-progress-bar></i></div></div>
-  <p><button class="btn btn-ghost btn-sm" type="button" data-print>Print checklist</button> <button class="btn btn-ghost btn-sm" type="button" data-checklist-reset>Reset progress</button></p>
+  <p class="btn-row"><button class="btn btn-ghost btn-sm" type="button" data-print>Print checklist</button><button class="btn btn-ghost btn-sm" type="button" data-checklist-reset>Reset progress</button></p>
   {cl}
   <div class="callout"><p><strong>A checklist is a starting point.</strong> Many WCAG criteria need expert manual testing to verify. <a href="index.html#scan">Request a free scan</a> to see how your site measures up.</p></div>
 </div></section>
@@ -601,7 +612,7 @@ nf = '''
   <p class="kicker">Error 404</p>
   <h1>We couldn't find that page</h1>
   <p style="margin:0 auto 28px">The page may have moved. Try the homepage or our resources.</p>
-  <a class="btn btn-primary" href="/">Go to homepage</a> <a class="btn btn-ghost" href="/resources.html">Browse resources</a>
+  <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="/">Go to homepage</a><a class="btn btn-ghost" href="/resources.html">Browse resources</a></div>
 </div></section>
 '''
 page("404.html", "Page not found | SiteComply", "The page you were looking for could not be found.", "", nf.replace('href="index.html', 'href="/index.html'))
