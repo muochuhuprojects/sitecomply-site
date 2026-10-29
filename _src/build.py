@@ -10,7 +10,7 @@ VER = datetime.datetime.now().strftime("%Y%m%d%H%M")
 UPDATED = TODAY.strftime("%B %-d, %Y")
 
 CHECK = '<svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>'
-LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#2fc4a6"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#052a22" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+LOGO = '<svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def icon(path):
     return f'<div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{path}</svg></div>'
 I_SCALE = '<path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>'
@@ -84,7 +84,7 @@ def page(fname, title, desc, active, body, schema=""):
 <title>{title}</title>
 <meta name="description" content="{desc}">
 <link rel="canonical" href="{canon}">
-<meta name="theme-color" content="#0b1624">
+<meta name="theme-color" content="#f7f6f2">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="SiteComply">
 <meta property="og:title" content="{title}">
@@ -152,7 +152,7 @@ wk = "".join(f'<text x="{x:.1f}" y="{H+4}" text-anchor="middle" font-size="10" c
 chart = f'''<svg viewBox="0 0 {W} {H+10}" role="img" aria-labelledby="chart-t chart-d">
 <title id="chart-t">Open issues over 7 weeks</title>
 <desc id="chart-d">Open accessibility issues fell each week, from 64 in week 1 to 31 in week 7.</desc>
-<defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2fc4a6" stop-opacity=".28"/><stop offset="1" stop-color="#2fc4a6" stop-opacity="0"/></linearGradient></defs>
+<defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#0f6b5c" stop-opacity=".18"/><stop offset="1" stop-color="#0f6b5c" stop-opacity="0"/></linearGradient></defs>
 <line class="c-axis" x1="{P}" x2="{W-P}" y1="{H-P}" y2="{H-P}"/>
 <path d="{area}" fill="url(#g)"/>
 <polyline class="c-line" points="{line}" fill="none" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
