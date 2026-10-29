@@ -75,7 +75,10 @@
         })
         .catch(function () {
           status.className = 'form-status bad';
-          status.innerHTML = 'Something went wrong sending your request. Please email us directly at <a href="mailto:matt@sitecomply.ca">matt@sitecomply.ca</a>.';
+          var lines = [];
+          data.forEach(function (v, k) { if (k.charAt(0) !== '_' && v) lines.push(k + ': ' + v); });
+          var href = 'mailto:matt@sitecomply.ca?subject=' + encodeURIComponent(data.get('_subject') || 'SiteComply enquiry') + '&body=' + encodeURIComponent(lines.join('\n'));
+          status.innerHTML = 'We couldn\u2019t send your request just now. <a href="' + href + '">Send it by email instead</a> and your details will be filled in for you.';
           status.focus();
         })
         .finally(function () { submit.disabled = false; submit.textContent = label; });
