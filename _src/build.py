@@ -146,8 +146,11 @@ FOUNDERS = [
          bio=["Parwaiz is a Toronto entrepreneur who has spent the past five years building and running a Canadian company. In 2021 he founded Movin' Ebikes, a Toronto e-bike maker with a showroom on College Street that has since opened a store in New York.",
               "Building a product people ride every day meant working closely with safety standards, certifications and provincial rules. He has been interviewed by CBC News and quoted by CTV on e-bike safety.",
               "At SiteComply, Parwaiz brings that same focus on standards, clear documentation and accountability to helping Ontario's public sector meet its AODA obligations."]),
-    dict(name="Matt", role="Co-founder", photo=None, alt="", caption="",
-         linkedin=None, bio=None),
+    dict(name="Matthew Hu", role="Co-founder", photo=None, alt="", caption="",
+         linkedin="https://www.linkedin.com/in/mhu3/",
+         bio=["Matthew is a software engineer at Microsoft, where he works on the platform behind billing, subscriptions and provisioning for Azure and Microsoft 365. He holds Microsoft's DevOps Engineer Expert and Azure Developer Associate certifications.",
+              "He earned an Honours Bachelor in Computer Science and Economics from the University of Toronto and is in Georgia Tech's Master of Science program in Computer Science. Before Microsoft, he spent four years as a product engineer at mobi, Hawai\u02bbi's regional wireless provider, and ran vendor and automation projects at Shopify in Toronto.",
+              "At SiteComply, Matthew leads the technical side: the scanning, testing and reporting that show exactly where your website stands and what to fix."]),
 ]
 LI = '<svg class="li-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>'
 def founder_cards():
@@ -158,7 +161,7 @@ def founder_cards():
             fig = f'<figure><img src="{f["photo"]}" alt="{f["alt"]}" loading="lazy" width="656" height="720"></figure>'
             cap = f'<figcaption>{f["caption"]}</figcaption>' if f["caption"] else ""
         else:
-            fig = f'<figure><div class="initials" aria-hidden="true">{f["name"][0]}</div></figure>'; cap = ""
+            fig = f'<figure><div class="initials" aria-hidden="true">{"".join(w[0] for w in f["name"].split())}</div></figure>'; cap = ""
         paras = "".join(f"<p>{x}</p>" for x in f["bio"])
         li = f'<a class="btn btn-ghost btn-sm" href="{f["linkedin"]}" target="_blank" rel="noopener">{LI}{f["name"]} on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>' if f["linkedin"] else ""
         out.append(f'<article class="founder reveal">{fig}{cap}<div class="founder-body"><h3>{f["name"]}</h3><p class="role">{f["role"]}, SiteComply</p>{paras}{li}</div></article>')
