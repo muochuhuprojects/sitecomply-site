@@ -163,7 +163,7 @@ def founder_cards():
         else:
             fig = f'<figure><div class="initials" aria-hidden="true">{"".join(w[0] for w in f["name"].split())}</div></figure>'; cap = ""
         paras = "".join(f"<p>{x}</p>" for x in f["bio"])
-        li = f'<a class="btn btn-ghost btn-sm" href="{f["linkedin"]}" target="_blank" rel="noopener">{LI}{f["name"]} on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>' if f["linkedin"] else ""
+        li = f'<a class="btn btn-ghost btn-sm" href="{f["linkedin"]}" target="_blank" rel="noopener">{LI}{f["name"].split()[0]} on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>' if f["linkedin"] else ""
         out.append(f'<article class="founder reveal">{fig}{cap}<div class="founder-body"><h3>{f["name"]}</h3><p class="role">{f["role"]}, SiteComply</p>{paras}{li}</div></article>')
     return "".join(out)
 FOUNDER_HTML = founder_cards()
