@@ -146,7 +146,7 @@ FOUNDERS = [
          bio=["Parwaiz is a Toronto entrepreneur who has spent the past five years building and running a Canadian company. In 2021 he founded Movin' Ebikes, a Toronto e-bike maker with a showroom on College Street that has since opened a store in New York.",
               "Building a product people ride every day meant working closely with safety standards, certifications and provincial rules. He has been interviewed by CBC News and quoted by CTV on e-bike safety.",
               "At SiteComply, Parwaiz brings that same focus on standards, clear documentation and accountability to helping Ontario's public sector meet its AODA obligations."]),
-    dict(name="Matthew Hu", role="Co-founder", photo=None, alt="", caption="",
+    dict(name="Matthew Hu", role="Co-founder", photo="assets/team/matthew.jpg", alt="Matthew Hu standing beside a small airplane at night", caption="",
          linkedin="https://www.linkedin.com/in/mhu3/",
          bio=["Matthew is a software engineer at Microsoft, where he works on the platform behind billing, subscriptions and provisioning for Azure and Microsoft 365. He holds Microsoft's DevOps Engineer Expert and Azure Developer Associate certifications.",
               "He earned an Honours Bachelor in Computer Science and Economics from the University of Toronto and is in Georgia Tech's Master of Science program in Computer Science. Before Microsoft, he spent four years as a product engineer at mobi, Hawai\u02bbi's regional wireless provider, and ran vendor and automation projects at Shopify in Toronto.",
