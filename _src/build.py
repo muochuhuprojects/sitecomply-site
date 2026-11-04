@@ -139,7 +139,7 @@ I_SHIELD = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 1
 # ---------------- FOUNDERS ----------------
 # Fill in each founder. A founder with bio=None is left off the site.
 FOUNDERS = [
-    dict(name="Parwaiz", role="Co-founder", photo="assets/team/parwaiz.jpg",
+    dict(name="Parwaiz", role="Co-founder, Product and Compliance", photo="assets/team/parwaiz.jpg",
          alt="Parwaiz speaking with a CBC News reporter",
          caption="Parwaiz in an interview with CBC News.",
          linkedin="https://www.linkedin.com/in/parwaiz-nijrabi-146530104/",
@@ -164,7 +164,7 @@ def founder_cards():
             fig = f'<figure><div class="initials" aria-hidden="true">{"".join(w[0] for w in f["name"].split())}</div></figure>'; cap = ""
         paras = "".join(f"<p>{x}</p>" for x in f["bio"])
         li = f'<a class="btn btn-ghost btn-sm" href="{f["linkedin"]}" target="_blank" rel="noopener">{LI}{f["name"].split()[0]} on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>' if f["linkedin"] else ""
-        out.append(f'<article class="founder reveal">{fig}{cap}<div class="founder-body"><h3>{f["name"]}</h3><p class="role">{f["role"]}, SiteComply</p>{paras}{li}</div></article>')
+        out.append(f'<article class="founder reveal">{fig}{cap}<div class="founder-body"><h3>{f["name"]}</h3><p class="role">{f["role"]}</p>{paras}{li}</div></article>')
     return "".join(out)
 FOUNDER_HTML = founder_cards()
 def founders_section(cls="section"):
