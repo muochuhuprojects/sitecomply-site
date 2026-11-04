@@ -135,6 +135,46 @@ def scan_form(id_prefix="scan", heading="Request your free scan"):
 I_LOCK = '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'
 I_GLOBE = '<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/>'
 I_SHIELD = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>'
+
+# ---------------- FOUNDERS ----------------
+# Fill in each founder. A founder with bio=None is left off the site.
+FOUNDERS = [
+    dict(name="Parwaiz", role="Co-founder", photo="assets/team/parwaiz.jpg",
+         alt="Parwaiz speaking with a CBC News reporter",
+         caption="Parwaiz in an interview with CBC News.",
+         linkedin=None, bio=None),
+    dict(name="Matt", role="Co-founder", photo=None, alt="", caption="",
+         linkedin=None, bio=None),
+]
+LI = '<svg class="li-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>'
+def founder_cards():
+    out = []
+    for f in FOUNDERS:
+        if not f["bio"]: continue
+        if f["photo"]:
+            fig = f'<figure><img src="{f["photo"]}" alt="{f["alt"]}" loading="lazy" width="656" height="720"></figure>'
+            cap = f'<figcaption>{f["caption"]}</figcaption>' if f["caption"] else ""
+        else:
+            fig = f'<figure><div class="initials" aria-hidden="true">{f["name"][0]}</div></figure>'; cap = ""
+        paras = "".join(f"<p>{x}</p>" for x in f["bio"])
+        li = f'<a class="btn btn-ghost btn-sm" href="{f["linkedin"]}" target="_blank" rel="noopener">{LI}{f["name"]} on LinkedIn<span class="sr-only"> (opens in a new tab)</span></a>' if f["linkedin"] else ""
+        out.append(f'<article class="founder reveal">{fig}{cap}<div class="founder-body"><h3>{f["name"]}</h3><p class="role">{f["role"]}, SiteComply</p>{paras}{li}</div></article>')
+    return "".join(out)
+FOUNDER_HTML = founder_cards()
+def founders_section(cls="section"):
+    if not FOUNDER_HTML: return ""
+    return f"""
+<section class="{cls}" id="founders" aria-labelledby="founders-h">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Our team</span>
+      <h2 id="founders-h">Meet the founders</h2>
+      <p>SiteComply is run by its founders, so you work directly with the people doing your audit.</p>
+    </div>
+    <div class="founders">{FOUNDER_HTML}</div>
+  </div>
+</section>"""
+
 # ---------------- HOME ----------------
 _ic = lambda p: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'
 bld = _ic('<path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/>')
@@ -230,7 +270,7 @@ home = f'''
     </div>
     <div class="grid-3">
       <article class="card reveal">{icon(I_SCALE)}<h3>It's the law</h3><p>The Accessibility for Ontarians with Disabilities Act (AODA) requires all Ontario public sector organizations to meet WCAG 2.0 Level AA. Non-compliance can result in significant fines and reputational risk.</p></article>
-      <article class="card reveal">{icon(I_PEOPLE)}<h3>It serves your community</h3><p>More than 2.6 million Ontarians live with a disability. An accessible website ensures every resident can access government services, information and programs without barriers.</p></article>
+      <article class="card reveal">{icon(I_PEOPLE)}<h3>It serves your community</h3><p>More than 2.6 million people in Ontario live with a disability. An accessible website ensures every resident can access government services, information and programs without barriers.</p></article>
       <article class="card reveal">{icon(I_CLOCK)}<h3>The deadlines have passed</h3><p>The AODA deadline for public sector websites was January 1, 2021. If your site isn't compliant, you're already at risk. SiteComply helps you close the gap quickly and confidently.</p></article>
     </div>
   </div>
@@ -271,6 +311,7 @@ home = f'''
   </div>
 </section>
 
+{founders_section()}
 <section class="section alt" id="faq" aria-labelledby="faq-h">
   <div class="container">
     <div class="section-head reveal">
@@ -324,7 +365,7 @@ page("index.html", "SiteComply | AODA & WCAG Accessibility Compliance for Ontari
 about = f'''
 <section class="page-hero"><div class="container">
   <p class="crumbs"><a href="index.html">Home</a> / About</p>
-  <h1>Accessible websites for every Ontarian</h1>
+  <h1>Accessible websites for everyone in Ontario</h1>
   <p>SiteComply is an Ontario-based, Canadian-owned accessibility firm. We help municipalities and public sector organizations meet their AODA obligations and build websites that work for every resident.</p>
 </div></section>
 <section class="section" style="padding-top:40px"><div class="container split">
@@ -347,6 +388,7 @@ about = f'''
     <div class="card reveal">{icon(I_EYE)}<h3>Lived experience</h3><p>Testing reflects how residents actually use your site.</p></div>
   </div>
 </div></section>
+{founders_section()}
 <section class="section alt"><div class="container center">
   <h2>Ready to see where you stand?</h2>
   <p style="font-size:1.1rem;max-width:56ch;margin:0 auto 24px">Start with a free, no-commitment scan of your website.</p>
