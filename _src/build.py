@@ -4,7 +4,8 @@ import os, datetime
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMAIN = "https://sitecomply.ca"
 EMAIL = "matt@sitecomply.ca"
-FORM_ACTION = f"https://formsubmit.co/ajax/{EMAIL}"
+WEB3FORMS_KEY = "124bda37-b104-4e7b-bd8f-b8b5fee1ab69"
+FORM_ACTION = "https://api.web3forms.com/submit"
 TODAY = datetime.date.today()
 VER = datetime.datetime.now().strftime("%Y%m%d%H%M")
 UPDATED = TODAY.strftime("%B %-d, %Y")
@@ -115,11 +116,11 @@ def scan_form(id_prefix="scan", heading="Request your free scan"):
     return f'''<form class="form" data-sc-form action="{FORM_ACTION}" method="POST" novalidate aria-labelledby="{id_prefix}-h" data-success="Thanks, we&#39;ve received your request. We&#39;ll review your website and be in touch with your free scan report.">
   <h3 id="{id_prefix}-h">{heading}</h3>
   <p class="hint">Fields marked <span class="req" aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
-  <input type="hidden" name="_subject" value="New free scan request: SiteComply">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">
+  <input type="hidden" name="subject" value="New free scan request: SiteComply">
+  <input type="hidden" name="from_name" value="SiteComply website">
   <input type="hidden" name="Request type" value="Free site scan">
-  <div class="hp" aria-hidden="true"><label for="{id_prefix}-honey">Leave this empty</label><input id="{id_prefix}-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+  <div class="hp" aria-hidden="true"><label for="{id_prefix}-honey">Leave this empty</label><input id="{id_prefix}-honey" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></div>
   <div class="row-2">
     <div class="field"><label for="{id_prefix}-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-name" name="Name" type="text" autocomplete="name" placeholder="Jane Smith" required aria-describedby="{id_prefix}-name-err"><p class="err" id="{id_prefix}-name-err">Please enter your name.</p></div>
     <div class="field"><label for="{id_prefix}-org">Organization <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-org" name="Organization" type="text" autocomplete="organization" placeholder="Town of Oakville" required aria-describedby="{id_prefix}-org-err"><p class="err" id="{id_prefix}-org-err">Please enter your organization.</p></div>
@@ -370,11 +371,11 @@ contact = f'''
   <form class="form" data-sc-form action="{FORM_ACTION}" method="POST" novalidate aria-labelledby="contact-h" data-success="Thanks! Your message has been sent. We'll reply within one business day.">
     <h3 id="contact-h">Send us a message</h3>
     <p class="hint">Fields marked <span class="req" aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
-    <input type="hidden" name="_subject" value="New contact message: SiteComply">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">
+    <input type="hidden" name="subject" value="New contact message: SiteComply">
+    <input type="hidden" name="from_name" value="SiteComply website">
     <input type="hidden" name="Request type" value="Contact form">
-    <div class="hp" aria-hidden="true"><label for="c-honey">Leave this empty</label><input id="c-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+    <div class="hp" aria-hidden="true"><label for="c-honey">Leave this empty</label><input id="c-honey" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></div>
     <div class="row-2">
       <div class="field"><label for="c-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="c-name" name="Name" type="text" autocomplete="name" required aria-describedby="c-name-err"><p class="err" id="c-name-err">Please enter your name.</p></div>
       <div class="field"><label for="c-org">Organization <span class="req" aria-hidden="true">*</span></label><input id="c-org" name="Organization" type="text" autocomplete="organization" required aria-describedby="c-org-err"><p class="err" id="c-org-err">Please enter your organization.</p></div>
@@ -594,7 +595,7 @@ privacy = f'''
   <h2>Cookies and analytics</h2>
   <p>This website does not use advertising cookies or tracking analytics. The compliance checklist saves your progress in your own browser's local storage. That information never leaves your device.</p>
   <h2>Service providers</h2>
-  <p>Form submissions are delivered to our inbox through FormSubmit, a form-processing service. Our website is hosted on GitHub Pages and fonts are served by Google Fonts. These providers may process technical data such as your IP address to deliver their services.</p>
+  <p>Form submissions are delivered to our inbox through Web3Forms, a form-processing service. Our website is hosted on GitHub Pages and fonts are served by Google Fonts. These providers may process technical data such as your IP address to deliver their services.</p>
   <h2>Retention and your rights</h2>
   <p>We keep your information only as long as needed for the purpose you provided it. You can ask to see, correct or delete your information at any time by emailing <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
   <h2>Contact</h2>

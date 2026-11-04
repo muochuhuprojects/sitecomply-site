@@ -63,7 +63,7 @@
       var bad = validate();
       if (bad) { bad.focus(); status.className = 'form-status bad'; status.textContent = 'Please fill in the highlighted fields.'; return; }
       var data = new FormData(form);
-      if (data.get('_honey')) return;
+      if (data.get('botcheck')) return;
       submit.disabled = true; var label = submit.textContent; submit.textContent = 'Sending…';
       fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === 'false' || j.success === false) throw new Error(j.message || 'Request failed'); }); })
@@ -76,8 +76,8 @@
         .catch(function () {
           status.className = 'form-status bad';
           var lines = [];
-          data.forEach(function (v, k) { if (k.charAt(0) !== '_' && v) lines.push(k + ': ' + v); });
-          var href = 'mailto:matt@sitecomply.ca?subject=' + encodeURIComponent(data.get('_subject') || 'SiteComply enquiry') + '&body=' + encodeURIComponent(lines.join('\n'));
+          data.forEach(function (v, k) { if (['access_key','subject','from_name','botcheck'].indexOf(k) === -1 && v) lines.push(k + ': ' + v); });
+          var href = 'mailto:matt@sitecomply.ca?subject=' + encodeURIComponent(data.get('subject') || 'SiteComply enquiry') + '&body=' + encodeURIComponent(lines.join('\n'));
           status.innerHTML = 'We couldn\u2019t send your request just now. <a href="' + href + '">Send it by email instead</a> and your details will be filled in for you.';
           status.focus();
         })

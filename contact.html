@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=202610282300">
+<link rel="stylesheet" href="assets/styles.css?v=202611031929">
 
 </head>
 <body>
@@ -44,14 +44,14 @@
     <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><h3>Response time</h3><p>Within one business day, Monday to Friday, Eastern Time.</p></div>
     <div class="card"><div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Service area</h3><p>Serving municipalities and public sector organizations across Ontario, remotely and on-site.</p></div>
   </div>
-  <form class="form" data-sc-form action="https://formsubmit.co/ajax/matt@sitecomply.ca" method="POST" novalidate aria-labelledby="contact-h" data-success="Thanks! Your message has been sent. We'll reply within one business day.">
+  <form class="form" data-sc-form action="https://api.web3forms.com/submit" method="POST" novalidate aria-labelledby="contact-h" data-success="Thanks! Your message has been sent. We'll reply within one business day.">
     <h3 id="contact-h">Send us a message</h3>
     <p class="hint">Fields marked <span class="req" aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
-    <input type="hidden" name="_subject" value="New contact message: SiteComply">
-    <input type="hidden" name="_template" value="table">
-    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="access_key" value="124bda37-b104-4e7b-bd8f-b8b5fee1ab69">
+    <input type="hidden" name="subject" value="New contact message: SiteComply">
+    <input type="hidden" name="from_name" value="SiteComply website">
     <input type="hidden" name="Request type" value="Contact form">
-    <div class="hp" aria-hidden="true"><label for="c-honey">Leave this empty</label><input id="c-honey" type="text" name="_honey" tabindex="-1" autocomplete="off"></div>
+    <div class="hp" aria-hidden="true"><label for="c-honey">Leave this empty</label><input id="c-honey" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></div>
     <div class="row-2">
       <div class="field"><label for="c-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="c-name" name="Name" type="text" autocomplete="name" required aria-describedby="c-name-err"><p class="err" id="c-name-err">Please enter your name.</p></div>
       <div class="field"><label for="c-org">Organization <span class="req" aria-hidden="true">*</span></label><input id="c-org" name="Organization" type="text" autocomplete="organization" required aria-describedby="c-org-err"><p class="err" id="c-org-err">Please enter your organization.</p></div>
@@ -100,6 +100,6 @@
     </div>
   </div>
 </footer>
-<script src="assets/main.js?v=202610282300" defer></script>
+<script src="assets/main.js?v=202611031929" defer></script>
 </body>
 </html>
