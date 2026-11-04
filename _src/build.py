@@ -139,8 +139,8 @@ I_SHIELD = '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 1
 # ---------------- FOUNDERS ----------------
 # Fill in each founder. A founder with bio=None is left off the site.
 FOUNDERS = [
-    dict(name="Parwaiz Nijrabi", role="Co-founder", photo="assets/team/parwaiz.jpg",
-         alt="Parwaiz Nijrabi speaking with a CBC News reporter",
+    dict(name="Parwaiz", role="Co-founder", photo="assets/team/parwaiz.jpg",
+         alt="Parwaiz speaking with a CBC News reporter",
          caption="Parwaiz in an interview with CBC News.",
          linkedin="https://www.linkedin.com/in/parwaiz-nijrabi-146530104/",
          bio=["Parwaiz is a Toronto entrepreneur who has spent the past five years building and running a Canadian company. In 2021 he founded Movin' Ebikes, a Toronto e-bike maker with a showroom on College Street that has since opened a store in New York.",
