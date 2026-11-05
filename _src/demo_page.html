@@ -1,0 +1,161 @@
+<section class="page-hero demo-hero">
+  <div class="container">
+    <p class="kicker">Demo account</p>
+    <h1>See what a SiteComply report looks like</h1>
+    <p class="lead">We ran our automated check on 15 real Ontario government websites, 6 public pages each. Pick one to see what we found, why it matters and how to fix it.</p>
+    <p class="demo-note"><strong>Please note:</strong> this is an automated check of a small sample of pages, done on <span data-demo-date></span>. Automated tools find only some accessibility problems, so these results are not a compliance verdict. A full SiteComply review also includes manual testing with a keyboard and screen reader.</p>
+  </div>
+</section>
+
+<section class="section demo">
+  <div class="container">
+    <div class="demo-bar card">
+      <div class="demo-pick">
+        <label for="demo-site">Choose a website</label>
+        <select id="demo-site"></select>
+      </div>
+      <p class="demo-meta" id="demo-meta" aria-live="polite"></p>
+    </div>
+
+    <div class="demo-stats" id="demo-stats" aria-live="polite"></div>
+
+    <div class="demo-grid">
+      <div>
+        <h2 class="demo-h2">What to fix first</h2>
+        <p class="demo-sub">Grouped by problem and sorted by how much it affects people. Tick an item once it's fixed to see how tracking works.</p>
+        <div id="demo-issues"></div>
+      </div>
+      <aside aria-labelledby="demo-pages-h">
+        <h2 class="demo-h2" id="demo-pages-h">Pages checked</h2>
+        <ul class="demo-pages" id="demo-pages"></ul>
+      </aside>
+    </div>
+
+    <h2 class="demo-h2 demo-all-h">All 15 websites at a glance</h2>
+    <div class="demo-table-wrap card">
+      <table class="demo-table">
+        <caption class="sr-only">Automated check results for 15 Ontario government websites</caption>
+        <thead><tr><th scope="col">Website</th><th scope="col">Issues found</th><th scope="col">Pages with no issues</th><th scope="col">PDFs to review</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
+        <tbody id="demo-table"></tbody>
+      </table>
+    </div>
+
+    <div class="demo-try card">
+      <div>
+        <h2 class="demo-h2">Want this for your website?</h2>
+        <p>Enter your website and we'll run a free scan of your public pages and send you the report.</p>
+      </div>
+      <form class="demo-try-form" action="index.html#scan" method="get" id="demo-try">
+        <label for="demo-url">Your website</label>
+        <div class="demo-try-row">
+          <input id="demo-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="yourtown.ca" required>
+          <button class="btn btn-primary" type="submit">Request free scan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+var SITES = __DATA__;
+var RULES = {
+  "link-name": {t:"Links with no text", w:"2.4.4 Link Purpose (Level A)", lvl:3,
+    who:"People using screen readers hear only \"link\" with no clue where it goes. This is common with icon-only links such as social media icons or logos.",
+    fix:"Add visible link text, or a short label (aria-label) to icon links, for example \"Follow us on Facebook\"."},
+  "color-contrast": {t:"Text that's hard to read", w:"1.4.3 Contrast (Level AA)", lvl:3,
+    who:"Low-contrast text is hard to read for people with low vision, older residents and anyone reading on a phone in sunlight.",
+    fix:"Darken the text or the background until the contrast ratio is at least 4.5 to 1 (3 to 1 for large headings)."},
+  "role-img-alt": {t:"Graphics with no description", w:"1.1.1 Non-text Content (Level A)", lvl:3,
+    who:"Screen reader users can't tell what the graphic shows or whether it's important.",
+    fix:"Give each meaningful graphic a short text description. Mark purely decorative graphics as hidden."},
+  "listitem": {t:"Lists built incorrectly", w:"1.3.1 Info and Relationships (Level A)", lvl:2,
+    who:"Screen readers can't announce how many items are in the list, which makes menus and lists harder to follow.",
+    fix:"Place list items inside a proper list. This is usually a one-time fix in the website theme."},
+  "list": {t:"Lists built incorrectly", w:"1.3.1 Info and Relationships (Level A)", lvl:2,
+    who:"Screen readers can't announce how many items are in the list, which makes menus and lists harder to follow.",
+    fix:"Make sure lists only contain list items. This is usually a one-time fix in the website theme."},
+  "frame-title": {t:"Embedded content with no title", w:"4.1.2 Name, Role, Value (Level A)", lvl:2,
+    who:"Embedded maps, videos and forms are announced with no name, so screen reader users don't know what they are.",
+    fix:"Add a title to each embed, for example title=\"Map of the marina\"."},
+  "aria-valid-attr-value": {t:"Broken accessibility code", w:"4.1.2 Name, Role, Value (Level A)", lvl:3,
+    who:"Accessibility code (ARIA) points to something that doesn't exist, so assistive technology may announce the wrong thing.",
+    fix:"Correct the ARIA attribute so it points to a real element on the page."},
+  "scrollable-region-focusable": {t:"Scrolling area you can't reach by keyboard", w:"2.1.1 Keyboard (Level A)", lvl:2,
+    who:"People who can't use a mouse can't scroll this area to read its content.",
+    fix:"Make the scrolling area reachable with the Tab key (tabindex=\"0\") and give it a label."},
+  "meta-viewport": {t:"Zoom turned off on phones", w:"1.4.4 Resize Text (Level AA)", lvl:3,
+    who:"People with low vision can't pinch to zoom on their phone.",
+    fix:"Remove maximum-scale or user-scalable=no from the page's viewport setting."},
+  "select-name": {t:"Drop-down menu with no label", w:"4.1.2 Name, Role, Value (Level A)", lvl:3,
+    who:"Screen reader users don't know what the drop-down is for.",
+    fix:"Connect a visible label to the drop-down, or give it an aria-label."}
+};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function total(s){return s.pages.reduce(function(a,p){for(var k in p.i)a+=p.i[k];return a},0)}
+function clean(s){return s.pages.filter(function(p){return Object.keys(p.i).length===0}).length}
+function fmtDate(d){return new Date(d+"T12:00:00").toLocaleDateString("en-CA",{year:"numeric",month:"long",day:"numeric"})}
+
+var sel=document.getElementById("demo-site");
+[["Province","Province"],["City","Cities"],["Town","Towns and townships"]].forEach(function(g){
+  var og=document.createElement("optgroup");og.label=g[1];
+  SITES.forEach(function(s,i){if(s.kind===g[0]){var o=document.createElement("option");o.value=i;o.textContent=s.name;og.appendChild(o)}});
+  sel.appendChild(og);
+});
+document.querySelector("[data-demo-date]").textContent=fmtDate(SITES[0].date);
+
+function render(i){
+  var s=SITES[i], fixed=store("demo-fixed-"+s.host)||{};
+  var groups={};
+  s.pages.forEach(function(p){for(var k in p.i){var r=RULES[k]||{t:k,w:"",lvl:1,who:"",fix:""};var key=r.t;
+    groups[key]=groups[key]||{r:r,ids:[],n:0,pages:[]};groups[key].n+=p.i[k];if(groups[key].ids.indexOf(k)<0)groups[key].ids.push(k);groups[key].pages.push({t:p.t,u:p.u,n:p.i[k]})}});
+  var list=Object.keys(groups).map(function(k){return groups[k]}).sort(function(a,b){return (b.r.lvl*100+b.n)-(a.r.lvl*100+a.n)});
+  var n=total(s), open=list.reduce(function(a,g){return a+(fixed[g.r.t]?0:g.n)},0);
+
+  document.getElementById("demo-meta").innerHTML='<a href="'+esc(s.url)+'" rel="noopener" target="_blank">'+esc(s.host)+'<span class="sr-only"> (opens in a new tab)</span></a> · '+s.pages.length+' public pages checked · '+esc(fmtDate(s.date));
+  document.getElementById("demo-stats").innerHTML=[
+    [open,"Open issues",n?(n-open)+" marked fixed":"Nothing flagged"],
+    [list.length,"Types of problems","Each one is usually a single fix"],
+    [clean(s)+" of "+s.pages.length,"Pages with no issues","From the automated check"],
+    [s.pdfs,"PDFs to review","Linked from the pages checked"]
+  ].map(function(t){return '<div class="stat card"><p class="stat-n">'+t[0]+'</p><p class="stat-l">'+t[1]+'</p><p class="stat-s">'+t[2]+'</p></div>'}).join("");
+
+  var box=document.getElementById("demo-issues");
+  if(!list.length){
+    box.innerHTML='<div class="card demo-empty"><h3>No issues flagged on these pages</h3><p>The automated check didn\'t find any problems on the '+s.pages.length+' pages we sampled. That\'s a strong start. A full review would still check the rest of the site, '+(s.pdfs?'the '+s.pdfs+' linked PDFs, ':'PDF documents, ')+'and how the site works with a keyboard and screen reader.</p></div>';
+  } else {
+    box.innerHTML=list.map(function(g,gi){
+      var r=g.r, sev=r.lvl>=3?'High impact':'Medium impact', ex=s.ex[g.ids[0]];
+      var id='fix-'+i+'-'+gi;
+      return '<article class="card issue'+(fixed[r.t]?' is-fixed':'')+'">'+
+        '<div class="issue-head"><h3>'+esc(r.t)+'</h3><span class="issue-n">'+g.n+(g.n===1?' instance':' instances')+'</span></div>'+
+        '<p class="issue-tags"><span class="tag '+(r.lvl>=3?'tag-high':'tag-med')+'">'+sev+'</span><span class="tag">WCAG '+esc(r.w)+'</span></p>'+
+        '<p><strong>Who it affects:</strong> '+esc(r.who)+'</p>'+
+        '<p><strong>How to fix:</strong> '+esc(r.fix)+'</p>'+
+        '<details><summary>Where we found it</summary><ul class="issue-where">'+g.pages.map(function(p){return '<li><a href="'+esc(p.u)+'" rel="noopener" target="_blank">'+esc(p.t)+'<span class="sr-only"> (opens in a new tab)</span></a> <span class="muted">('+p.n+')</span></li>'}).join("")+'</ul>'+
+        (ex?'<p class="issue-ex-l">Example from the page code:</p><pre class="issue-ex"><code>'+esc(ex)+'</code></pre>':'')+'</details>'+
+        '<label class="issue-done" for="'+id+'"><input type="checkbox" id="'+id+'" data-rule="'+esc(r.t)+'"'+(fixed[r.t]?' checked':'')+'> Mark as fixed</label>'+
+      '</article>';
+    }).join("");
+    box.querySelectorAll("input[data-rule]").forEach(function(cb){cb.addEventListener("change",function(){
+      var f=store("demo-fixed-"+s.host)||{}; if(cb.checked)f[cb.dataset.rule]=1; else delete f[cb.dataset.rule]; store("demo-fixed-"+s.host,f);
+      var keep=cb.id; render(i); var el=document.getElementById(keep); if(el)el.focus();
+    })});
+  }
+  document.getElementById("demo-pages").innerHTML=s.pages.map(function(p){var c=0;for(var k in p.i)c+=p.i[k];
+    return '<li><a href="'+esc(p.u)+'" rel="noopener" target="_blank">'+esc(p.t)+'<span class="sr-only"> (opens in a new tab)</span></a><span class="pg-badge '+(c?'pg-bad':'pg-ok')+'">'+(c?c+(c===1?' issue':' issues'):'No issues')+'</span></li>'}).join("");
+  Array.prototype.forEach.call(document.querySelectorAll("#demo-table tr"),function(tr){tr.classList.toggle("is-current",tr.dataset.i==String(i))});
+}
+
+var order=SITES.map(function(s,i){return i}).sort(function(a,b){return total(SITES[b])-total(SITES[a])});
+document.getElementById("demo-table").innerHTML=order.map(function(i){var s=SITES[i];
+  return '<tr data-i="'+i+'"><th scope="row">'+esc(s.name)+'<span class="muted demo-host">'+esc(s.host)+'</span></th><td>'+total(s)+'</td><td>'+clean(s)+' of '+s.pages.length+'</td><td>'+s.pdfs+'</td><td><button type="button" class="btn btn-ghost btn-sm" data-view="'+i+'">View<span class="sr-only"> '+esc(s.name)+'</span></button></td></tr>'}).join("");
+document.getElementById("demo-table").addEventListener("click",function(e){var b=e.target.closest("[data-view]");if(!b)return;sel.value=b.dataset.view;render(+b.dataset.view);
+  document.getElementById("demo-site").scrollIntoView({behavior:"smooth",block:"center"});sel.focus({preventScroll:true})});
+
+var start=store("demo-site"); sel.value=(start!==null&&SITES[start])?start:order[0];
+sel.addEventListener("change",function(){store("demo-site",+sel.value);render(+sel.value)});
+render(+sel.value);
+})();
+</script>

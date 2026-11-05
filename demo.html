@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en-CA" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo report | SiteComply</title>
+<meta name="description" content="See a sample SiteComply accessibility report based on real automated checks of Ontario government websites.">
+<link rel="canonical" href="https://sitecomply.ca/demo.html">
+<meta name="theme-color" content="#f7f6f2">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SiteComply">
+<meta property="og:title" content="Demo report | SiteComply">
+<meta property="og:description" content="See a sample SiteComply accessibility report based on real automated checks of Ontario government websites.">
+<meta property="og:url" content="https://sitecomply.ca/demo.html">
+<meta property="og:image" content="https://sitecomply.ca/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=202611042016">
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a class="logo" href="index.html" aria-label="SiteComply home"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SiteComply</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links" id="nav-links"><li><a href="index.html#services">Services</a></li><li><a href="index.html#how">How it works</a></li><li><a href="about.html">About</a></li><li><a href="resources.html">Resources</a></li><li><a href="contact.html">Contact</a></li><li class="nav-cta"><a class="btn btn-primary btn-sm" href="index.html#scan">Get a free scan</a></li></ul>
+  </nav>
+</header>
+<main id="main" tabindex="-1">
+<section class="page-hero demo-hero">
+  <div class="container">
+    <p class="kicker">Demo account</p>
+    <h1>See what a SiteComply report looks like</h1>
+    <p class="lead">We ran our automated check on 15 real Ontario government websites, 6 public pages each. Pick one to see what we found, why it matters and how to fix it.</p>
+    <p class="demo-note"><strong>Please note:</strong> this is an automated check of a small sample of pages, done on <span data-demo-date></span>. Automated tools find only some accessibility problems, so these results are not a compliance verdict. A full SiteComply review also includes manual testing with a keyboard and screen reader.</p>
+  </div>
+</section>
+
+<section class="section demo">
+  <div class="container">
+    <div class="demo-bar card">
+      <div class="demo-pick">
+        <label for="demo-site">Choose a website</label>
+        <select id="demo-site"></select>
+      </div>
+      <p class="demo-meta" id="demo-meta" aria-live="polite"></p>
+    </div>
+
+    <div class="demo-stats" id="demo-stats" aria-live="polite"></div>
+
+    <div class="demo-grid">
+      <div>
+        <h2 class="demo-h2">What to fix first</h2>
+        <p class="demo-sub">Grouped by problem and sorted by how much it affects people. Tick an item once it's fixed to see how tracking works.</p>
+        <div id="demo-issues"></div>
+      </div>
+      <aside aria-labelledby="demo-pages-h">
+        <h2 class="demo-h2" id="demo-pages-h">Pages checked</h2>
+        <ul class="demo-pages" id="demo-pages"></ul>
+      </aside>
+    </div>
+
+    <h2 class="demo-h2 demo-all-h">All 15 websites at a glance</h2>
+    <div class="demo-table-wrap card">
+      <table class="demo-table">
+        <caption class="sr-only">Automated check results for 15 Ontario government websites</caption>
+        <thead><tr><th scope="col">Website</th><th scope="col">Issues found</th><th scope="col">Pages with no issues</th><th scope="col">PDFs to review</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
+        <tbody id="demo-table"></tbody>
+      </table>
+    </div>
+
+    <div class="demo-try card">
+      <div>
+        <h2 class="demo-h2">Want this for your website?</h2>
+        <p>Enter your website and we'll run a free scan of your public pages and send you the report.</p>
+      </div>
+      <form class="demo-try-form" action="index.html#scan" method="get" id="demo-try">
+        <label for="demo-url">Your website</label>
+        <div class="demo-try-row">
+          <input id="demo-url" name="url" type="text" inputmode="url" autocomplete="url" placeholder="yourtown.ca" required>
+          <button class="btn btn-primary" type="submit">Request free scan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+var SITES = [{"name":"Government of Ontario","kind":"Province","host":"ontario.ca","url":"https://www.ontario.ca","date":"2026-11-04","pdfs":0,"pages":[{"u":"https://www.ontario.ca","t":"Government of Ontario","ok":21,"i":{}},{"u":"https://www.ontario.ca/page/government-ontario","t":"Government of Ontario","ok":30,"i":{}},{"u":"https://www.ontario.ca/page/driving-and-road-safety","t":"Driving and road safety","ok":27,"i":{}},{"u":"https://www.ontario.ca/page/your-health","t":"Your health","ok":28,"i":{}},{"u":"https://www.ontario.ca/page/land-use-planning","t":"Land use planning","ok":26,"i":{}},{"u":"https://www.ontario.ca/page/about-ontario","t":"About Ontario","ok":27,"i":{}}],"ex":{}},{"name":"City of Toronto","kind":"City","host":"toronto.ca","url":"https://www.toronto.ca","date":"2026-11-04","pdfs":8,"pages":[{"u":"https://www.toronto.ca","t":"City of Toronto","ok":29,"i":{}},{"u":"https://www.toronto.ca/311","t":"311 Toronto","ok":28,"i":{"meta-viewport":1}},{"u":"https://www.toronto.ca/business-economy/new-businesses-startups/","t":"New Businesses & Startups","ok":28,"i":{}},{"u":"https://www.toronto.ca/community-people/health-wellness-care/health-programs-advice/hot-weather/cool-spaces-near-you/","t":"Cool Spaces Near You","ok":28,"i":{}},{"u":"https://www.toronto.ca/community-people/housing-shelter/rental-housing-rights-information/understand-prevent-evictions/","t":"Understand & Prevent Evictions","ok":28,"i":{}},{"u":"https://www.toronto.ca/city-government/accessibility-human-rights/accessibility-at-the-city-of-toronto/","t":"Accessibility at the City of Toronto","ok":28,"i":{"link-name":1}}],"ex":{"meta-viewport":"<meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1\">","link-name":"<a href=\"https://www.toronto.ca/city-government/accessibility-human-rights/accessibility-at-the-city-of-toronto/\" class=\"heading\">\n\t\t\t\t\t\t\t</a>"}},{"name":"City of Ottawa","kind":"City","host":"ottawa.ca","url":"https://ottawa.ca/en","date":"2026-11-04","pdfs":0,"pages":[{"u":"https://ottawa.ca/en","t":"City of Ottawa","ok":26,"i":{}},{"u":"https://ottawa.ca/en/city-hall","t":"City Hall","ok":25,"i":{}},{"u":"https://ottawa.ca/en/city-hall/city-news/newsroom/recognizing-remembrance-day-ottawa","t":"Recognizing Remembrance Day in Ottawa","ok":27,"i":{}},{"u":"https://ottawa.ca/en/city-hall/city-news/newsroom/new-pay-plate-parking-kiosks-rolling-out-citywide","t":"New Pay-by-Plate parking kiosks rolling out citywide","ok":26,"i":{}},{"u":"https://ottawa.ca/en/mayor-and-city-councillors","t":"Mayor and City Councillors","ok":27,"i":{}}],"ex":{}},{"name":"City of Mississauga","kind":"City","host":"mississauga.ca","url":"https://www.mississauga.ca","date":"2026-11-04","pdfs":2,"pages":[{"u":"https://www.mississauga.ca","t":"City of Mississauga","ok":28,"i":{"list":1,"listitem":4}},{"u":"https://www.mississauga.ca/services-and-programs/animals-and-pets/","t":"Animals and pets","ok":28,"i":{}},{"u":"https://www.mississauga.ca/council/integrity-commissioner/","t":"Integrity Commissioner","ok":28,"i":{}},{"u":"https://www.mississauga.ca/recreation-and-sports/locations/mississauga-sports-and-entertainment-centre/","t":"Mississauga Sports and Entertainment Centre Arena and Rinks","ok":34,"i":{"aria-valid-attr-value":2}},{"u":"https://www.mississauga.ca/services-and-programs/tickets-fines-and-penalties/pay-a-parking-ticket/","t":"Pay a parking ticket","ok":32,"i":{}},{"u":"https://mississauga.ca/services-and-programs/pay-apply-report/?focusedTab=3","t":"Pay, apply and report","ok":29,"i":{}}],"ex":{"list":"<ul class=\"event-list list-unstyled\">","listitem":"<li class=\"event-card\" index=\"0\">","aria-valid-attr-value":"<button class=\"nav-link active xsmall\" data-target=\"#tabContent1\" aria-controls=\"facility-hours\" role=\"tab\" data-toggle=\"tab\">Facility</button>"}},{"name":"City of Hamilton","kind":"City","host":"hamilton.ca","url":"https://www.hamilton.ca","date":"2026-11-04","pdfs":22,"pages":[{"u":"https://www.hamilton.ca","t":"Home page","ok":30,"i":{"scrollable-region-focusable":1,"select-name":1}},{"u":"https://www.hamilton.ca/translate?page=","t":"Translate","ok":29,"i":{"scrollable-region-focusable":1}},{"u":"https://www.hamilton.ca/people-programs/public-health/healthy-pregnancy/having-healthy-pregnancy","t":"Having a Healthy Pregnancy","ok":25,"i":{}},{"u":"https://www.hamilton.ca/home-neighbourhood/hsr/accessible-transit/taxi-scrip-program","t":"Taxi Scrip Program","ok":25,"i":{}},{"u":"https://www.hamilton.ca/build-invest-grow/planning-development/official-plan/neighbourhood-plans","t":"Neighbourhood Plans","ok":25,"i":{}},{"u":"https://www.hamilton.ca/things-do/venues-facilities-bookings/event-planning-information/event-locations","t":"Event Locations","ok":27,"i":{}}],"ex":{"scrollable-region-focusable":"<ul class=\"list\">","select-name":"<select class=\"simpler-select form-element form-element--type-select required form-select hidden initialized\" id=\"edit-menu-item--level-0\" data-once=\"simpler-selects\" style=\"display: none;\">"}},{"name":"City of Guelph","kind":"City","host":"guelph.ca","url":"https://guelph.ca","date":"2026-11-04","pdfs":40,"pages":[{"u":"https://guelph.ca","t":"City of Guelph","ok":24,"i":{}},{"u":"https://guelph.ca/living/","t":"Living in Guelph","ok":25,"i":{}},{"u":"https://guelph.ca/living/environment/garbage-and-recycling/","t":"Garbage and Recycling","ok":27,"i":{}},{"u":"https://guelph.ca/business/cip/","t":"Community Improvement Plan","ok":25,"i":{}},{"u":"https://guelph.ca/city-government/budget-and-finance/financial-reports/","t":"Financial reports","ok":24,"i":{}},{"u":"https://guelph.ca/city-government/by-laws-and-policies/zoning-by-law/","t":"Zoning Bylaw","ok":27,"i":{}}],"ex":{}},{"name":"Town of Collingwood","kind":"Town","host":"collingwood.ca","url":"https://www.collingwood.ca","date":"2026-11-04","pdfs":0,"pages":[{"u":"https://www.collingwood.ca","t":"Town of Collingwood","ok":30,"i":{"link-name":4}},{"u":"https://www.collingwood.ca/governance-engagement/careers-employment","t":"Careers & Employment","ok":27,"i":{"frame-title":1}},{"u":"https://www.collingwood.ca/development-growth-economy/development-management/zoning-law","t":"Zoning By-law","ok":26,"i":{"frame-title":1}},{"u":"https://www.collingwood.ca/health-well-being/parks-trails-amenities/marina-harbour","t":"Marina & Harbour","ok":27,"i":{}},{"u":"https://www.collingwood.ca/events","t":"Events","ok":27,"i":{}},{"u":"https://www.collingwood.ca/governance-engagement/news-notices/stay-connected","t":"Stay Connected","ok":27,"i":{}}],"ex":{"link-name":"<a href=\"/governance-engagement/news-notices/november-collingwood-museum-features-local-stories-service\" rel=\"bookmark\" tabindex=\"-1\"></a>","frame-title":"<iframe frameborder=\"0\" height=\"800\" scrolling=\"auto\" src=\"https://app.cyberimpact.com/clients/44790/subscribe-forms/D820978D-FFC0-4A39-A396-BD1E11ECD14F\" width=\"500\"></iframe>"}},{"name":"Town of Cobourg","kind":"Town","host":"cobourg.ca","url":"https://www.cobourg.ca","date":"2026-11-04","pdfs":17,"pages":[{"u":"https://www.cobourg.ca","t":"Home","ok":28,"i":{"role-img-alt":2}},{"u":"https://www.cobourg.ca/our-government/privacy-policy/","t":"Privacy Policy","ok":25,"i":{"role-img-alt":1}},{"u":"https://www.cobourg.ca/home-property/zoning/","t":"Zoning","ok":25,"i":{"role-img-alt":1}},{"u":"https://www.cobourg.ca/business-development/business-licences-and-permits/","t":"Business Licences and Permits","ok":25,"i":{"role-img-alt":1}},{"u":"https://www.cobourg.ca/our-government/committees-and-boards/","t":"Committees and Boards","ok":27,"i":{"role-img-alt":1}},{"u":"https://www.cobourg.ca/our-government/truth-and-reconciliation/","t":"Truth and Reconciliation","ok":25,"i":{"role-img-alt":1}}],"ex":{"role-img-alt":"<div class=\"image background-image component-background-image lazyloaded\" style=\"background-image: url(&quot;https://media-001-ca.cdn.govstack.com/cobourg-008-ca/media/itpb2wpe/cobourg-victoria-hall-tp-drone-001_og.jpeg?"}},{"name":"Township of Uxbridge","kind":"Town","host":"uxbridge.ca","url":"https://www.uxbridge.ca","date":"2026-11-04","pdfs":0,"pages":[{"u":"https://www.uxbridge.ca","t":"Township of Uxbridge: Home","ok":25,"i":{}},{"u":"https://www.uxbridge.ca/living-here","t":"Living Here: Township of Uxbridge","ok":23,"i":{}},{"u":"https://www.uxbridge.ca/living-here/new-to-uxbridge/utilities","t":"Utilities: Township of Uxbridge","ok":23,"i":{}},{"u":"https://www.uxbridge.ca/explore-and-play/facilities-parks-and-trails/permit-parking-and-trail-sustainability","t":"Permit Parking and Trail Sustainability: Township of Uxbridge","ok":23,"i":{}},{"u":"https://www.uxbridge.ca/doing-business/development-and-planning/committee-of-adjustment","t":"Committee of Adjustment: Township of Uxbridge","ok":23,"i":{}},{"u":"https://www.uxbridge.ca/town-hall/by-laws","t":"By-laws: Township of Uxbridge","ok":23,"i":{}}],"ex":{}},{"name":"Town of Gravenhurst","kind":"Town","host":"gravenhurst.ca","url":"https://www.gravenhurst.ca","date":"2026-11-04","pdfs":10,"pages":[{"u":"https://www.gravenhurst.ca","t":"Home","ok":25,"i":{"role-img-alt":3}},{"u":"https://www.gravenhurst.ca/living-here/","t":"Living Here","ok":23,"i":{"role-img-alt":2}},{"u":"https://www.gravenhurst.ca/living-here/housing/","t":"Housing","ok":24,"i":{"role-img-alt":2}},{"u":"https://www.gravenhurst.ca/tourism-culture-recreation/golf-gravenhurst/","t":"Golf Gravenhurst","ok":24,"i":{"role-img-alt":2}},{"u":"https://www.gravenhurst.ca/business-building-development/building-and-planning/planning/","t":"Planning","ok":24,"i":{"link-name":2,"role-img-alt":2}},{"u":"https://www.gravenhurst.ca/town-hall-council/media-and-public-relations/","t":"Media and Public Relations","ok":24,"i":{"role-img-alt":2}}],"ex":{"role-img-alt":"<div class=\"image background-image component-background-image lazyloaded\" style=\"background-image: url(&quot;https://media-001-ca.cdn.govstack.com/gravenhurst-005-ca/media/ycjgs153/homepage-banner-fall-artist-hanna-dykst","link-name":"<a href=\"https://ca.cloudpermit.com/gravenhurst/\"></a>"}},{"name":"Prince Edward County","kind":"Town","host":"thecounty.ca","url":"https://www.thecounty.ca","date":"2026-11-04","pdfs":14,"pages":[{"u":"https://www.thecounty.ca","t":"Welcome to The County","ok":28,"i":{"color-contrast":11,"link-name":15}},{"u":"https://www.thecounty.ca/residents/employment/","t":"Employment","ok":28,"i":{"color-contrast":9,"link-name":7}},{"u":"https://www.thecounty.ca/visit/","t":"Explore Prince Edward County","ok":28,"i":{"color-contrast":1,"link-name":7}},{"u":"https://www.thecounty.ca/business/living-in-the-county/","t":"Living in the County","ok":28,"i":{"color-contrast":11,"link-name":24}},{"u":"https://www.thecounty.ca/government/municipal-projects/plans-and-strategies/","t":"Plans and Strategies","ok":28,"i":{"color-contrast":1,"link-name":7}},{"u":"https://www.thecounty.ca/government/election/information-for-voters/","t":"Information for Voters","ok":32,"i":{"color-contrast":9,"link-name":20}}],"ex":{"color-contrast":"<a href=\"#\" class=\"elementor-item elementor-item-anchor menu-link\">I want to\u2026</a>","link-name":"<a href=\"/\">"}},{"name":"Town of Smiths Falls","kind":"Town","host":"smithsfalls.ca","url":"https://www.smithsfalls.ca","date":"2026-11-04","pdfs":22,"pages":[{"u":"https://www.smithsfalls.ca","t":"Home","ok":26,"i":{"role-img-alt":2}},{"u":"https://www.smithsfalls.ca/privacy-policy/","t":"Privacy Policy","ok":24,"i":{"role-img-alt":1}},{"u":"https://www.smithsfalls.ca/recreation-community/","t":"Recreation & Community","ok":24,"i":{}},{"u":"https://www.smithsfalls.ca/business-building-development/municipal-heritage/","t":"Municipal Heritage","ok":24,"i":{"color-contrast":1}},{"u":"https://www.smithsfalls.ca/council-administration/by-laws-enforcement/","t":"By-laws & Enforcement","ok":24,"i":{}},{"u":"https://www.smithsfalls.ca/visit-smiths-falls/arts-culture/","t":"Arts & Culture","ok":24,"i":{"frame-title":1,"role-img-alt":1}}],"ex":{"role-img-alt":"<div class=\"image background-image component-background-image lazyloaded\" style=\"background-image: url(&quot;https://media-003-ca.cdn.govstack.com/smithsfalls-ca/media/lzsjzx4u/homepage-fall-image-3.png?format=webp&quot;","color-contrast":"<div class=\"caption\">11 Market Street South &amp; 30 Chambers Street</div>","frame-title":"<iframe src=\"https://app.memorykpr.com/external/d6ac6726-566b-4a4f-b245-3c28cb2b2c19/slideshow/embed?chapterId=db6aecbe-c183-4563-8c4a-c37509113333&amp;disablePinned=true\" style=\"width: 100%; height: 448px;\"></iframe>"}},{"name":"Municipality of Kincardine","kind":"Town","host":"kincardine.ca","url":"https://www.kincardine.ca","date":"2026-11-04","pdfs":4,"pages":[{"u":"https://www.kincardine.ca","t":"Home","ok":29,"i":{"role-img-alt":1}},{"u":"https://www.kincardine.ca/our-services/privacy-policy/","t":"Privacy Policy","ok":25,"i":{}},{"u":"https://www.kincardine.ca/live-here/marina/","t":"Kincardine Marina","ok":25,"i":{}},{"u":"https://www.kincardine.ca/be-active/beaches-parks-trails-and-facilities/beaches/smart-beach-light-at-station-beach/","t":"Smart Beach Light at Station Beach","ok":25,"i":{"color-contrast":3,"role-img-alt":1}},{"u":"https://www.kincardine.ca/our-services/boards-and-committees/","t":"Boards and Committees","ok":25,"i":{}},{"u":"https://www.kincardine.ca/our-services/water-and-environmental/","t":"Water and Environmental","ok":24,"i":{"role-img-alt":1}}],"ex":{"role-img-alt":"<div class=\"image lazyload background-image \" style=\"background-image:url('https://media-001-ca.cdn.govstack.com/kincardine-005-ca/media/nizjvwph/wards.png?width=750&amp;height=100&amp;v=1dd55dadf0f3450&amp;format=webp')","color-contrast":"<span style=\"mso-prop-change: 'Meagan Fair \\[MCR NPX Innovation\\]' 20260422T1458;\">&nbsp; &nbsp; &nbsp; Red</span>"}},{"name":"Town of Wasaga Beach","kind":"Town","host":"wasagabeach.com","url":"https://www.wasagabeach.com","date":"2026-11-04","pdfs":0,"pages":[{"u":"https://www.wasagabeach.com","t":"Home","ok":24,"i":{"color-contrast":14,"role-img-alt":5}},{"u":"https://www.wasagabeach.com/festivals-events/","t":"Festivals & Events","ok":23,"i":{"color-contrast":1,"link-name":1,"role-img-alt":2}},{"u":"https://www.wasagabeach.com/programs-services/recreation/","t":"Recreation","ok":23,"i":{"color-contrast":2,"role-img-alt":1}},{"u":"https://www.wasagabeach.com/our-organization/","t":"Our Organization","ok":23,"i":{"color-contrast":1,"role-img-alt":1}},{"u":"https://www.wasagabeach.com/newsroom/","t":"Newsroom","ok":25,"i":{"color-contrast":1,"role-img-alt":1}},{"u":"https://www.wasagabeach.com/festivals-events/festivals-events/summer-sets/","t":"Summer Sets","ok":24,"i":{"color-contrast":2,"role-img-alt":7}}],"ex":{"color-contrast":"<a class=\"btn  c7-btn-bg c7-btn-bg-solid c7-btn-bg-hover-solid c7-btn-text c7-btn-borders\" href=\"/news/\">","role-img-alt":"<div class=\"image background-image lazyloaded\" style=\"background-image: url(&quot;https://media-001-ca.cdn.govstack.com/wasagabeach-006-ca/media/bvtfpccb/explore-wasaga-beach.jpg?rxy=0.6671290214208351,0.4949653387153387","link-name":"<a href=\"/festivals-events/festivals-events/holiday-kickoff-weekend/\" target=\"\">"}},{"name":"Town of Pelham","kind":"Town","host":"pelham.ca","url":"https://www.pelham.ca","date":"2026-11-04","pdfs":32,"pages":[{"u":"https://www.pelham.ca","t":"Home","ok":27,"i":{"color-contrast":2,"role-img-alt":2}},{"u":"http://www.pelham.ca/living-in-pelham/","t":"Living in Pelham","ok":23,"i":{"role-img-alt":1}},{"u":"https://www.pelham.ca/living-in-pelham/spot-an-issue-share-it/","t":"Spot an Issue? Share it","ok":24,"i":{"link-name":1,"role-img-alt":1}},{"u":"https://www.pelham.ca/business-building-development/development-charges/","t":"Development Charges","ok":24,"i":{"role-img-alt":1}},{"u":"https://www.pelham.ca/pelham-government/lottery-licencing/","t":"Lottery Licencing","ok":24,"i":{"link-name":1,"role-img-alt":1}},{"u":"http://www.pelham.ca/living-in-pelham/utility-billing-rates/","t":"Utility Billing & Rates","ok":23,"i":{"frame-title":1,"link-name":1,"role-img-alt":1}}],"ex":{"color-contrast":"<span class=\"gs-feed-list-month\">Dec</span>","role-img-alt":"<div class=\"image background-image component-background-image lazyloaded\" style=\"background-image: url(&quot;https://media-001-ca.cdn.govstack.com/pelham-007-ca/media/lvddrdi5/heritage-site-comfort-maple.png?format=webp&","link-name":"<a rel=\"noopener\" href=\"https://service.pelham.ca/s/?language=en_US\" target=\"_blank\" data-anchor=\"?language=en_US\"><img src=\"https://media-001-ca.cdn.govstack.com/pelham-007-ca/media/qzknoaux/spot-it-share-it.png\" alt=\"\"","frame-title":"<iframe allowfullscreen=\"allowfullscreen\" allow=\"clipboard-write\" scrolling=\"no\" class=\"fp-iframe\" src=\"https://heyzine.com/flip-book/48bc6fd7b8.html\" style=\"border: 1px solid lightgray; width: 100%; height: 400px;\"></if"}}];
+var RULES = {
+  "link-name": {t:"Links with no text", w:"2.4.4 Link Purpose (Level A)", lvl:3,
+    who:"People using screen readers hear only \"link\" with no clue where it goes. This is common with icon-only links such as social media icons or logos.",
+    fix:"Add visible link text, or a short label (aria-label) to icon links, for example \"Follow us on Facebook\"."},
+  "color-contrast": {t:"Text that's hard to read", w:"1.4.3 Contrast (Level AA)", lvl:3,
+    who:"Low-contrast text is hard to read for people with low vision, older residents and anyone reading on a phone in sunlight.",
+    fix:"Darken the text or the background until the contrast ratio is at least 4.5 to 1 (3 to 1 for large headings)."},
+  "role-img-alt": {t:"Graphics with no description", w:"1.1.1 Non-text Content (Level A)", lvl:3,
+    who:"Screen reader users can't tell what the graphic shows or whether it's important.",
+    fix:"Give each meaningful graphic a short text description. Mark purely decorative graphics as hidden."},
+  "listitem": {t:"Lists built incorrectly", w:"1.3.1 Info and Relationships (Level A)", lvl:2,
+    who:"Screen readers can't announce how many items are in the list, which makes menus and lists harder to follow.",
+    fix:"Place list items inside a proper list. This is usually a one-time fix in the website theme."},
+  "list": {t:"Lists built incorrectly", w:"1.3.1 Info and Relationships (Level A)", lvl:2,
+    who:"Screen readers can't announce how many items are in the list, which makes menus and lists harder to follow.",
+    fix:"Make sure lists only contain list items. This is usually a one-time fix in the website theme."},
+  "frame-title": {t:"Embedded content with no title", w:"4.1.2 Name, Role, Value (Level A)", lvl:2,
+    who:"Embedded maps, videos and forms are announced with no name, so screen reader users don't know what they are.",
+    fix:"Add a title to each embed, for example title=\"Map of the marina\"."},
+  "aria-valid-attr-value": {t:"Broken accessibility code", w:"4.1.2 Name, Role, Value (Level A)", lvl:3,
+    who:"Accessibility code (ARIA) points to something that doesn't exist, so assistive technology may announce the wrong thing.",
+    fix:"Correct the ARIA attribute so it points to a real element on the page."},
+  "scrollable-region-focusable": {t:"Scrolling area you can't reach by keyboard", w:"2.1.1 Keyboard (Level A)", lvl:2,
+    who:"People who can't use a mouse can't scroll this area to read its content.",
+    fix:"Make the scrolling area reachable with the Tab key (tabindex=\"0\") and give it a label."},
+  "meta-viewport": {t:"Zoom turned off on phones", w:"1.4.4 Resize Text (Level AA)", lvl:3,
+    who:"People with low vision can't pinch to zoom on their phone.",
+    fix:"Remove maximum-scale or user-scalable=no from the page's viewport setting."},
+  "select-name": {t:"Drop-down menu with no label", w:"4.1.2 Name, Role, Value (Level A)", lvl:3,
+    who:"Screen reader users don't know what the drop-down is for.",
+    fix:"Connect a visible label to the drop-down, or give it an aria-label."}
+};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}}
+function total(s){return s.pages.reduce(function(a,p){for(var k in p.i)a+=p.i[k];return a},0)}
+function clean(s){return s.pages.filter(function(p){return Object.keys(p.i).length===0}).length}
+function fmtDate(d){return new Date(d+"T12:00:00").toLocaleDateString("en-CA",{year:"numeric",month:"long",day:"numeric"})}
+
+var sel=document.getElementById("demo-site");
+[["Province","Province"],["City","Cities"],["Town","Towns and townships"]].forEach(function(g){
+  var og=document.createElement("optgroup");og.label=g[1];
+  SITES.forEach(function(s,i){if(s.kind===g[0]){var o=document.createElement("option");o.value=i;o.textContent=s.name;og.appendChild(o)}});
+  sel.appendChild(og);
+});
+document.querySelector("[data-demo-date]").textContent=fmtDate(SITES[0].date);
+
+function render(i){
+  var s=SITES[i], fixed=store("demo-fixed-"+s.host)||{};
+  var groups={};
+  s.pages.forEach(function(p){for(var k in p.i){var r=RULES[k]||{t:k,w:"",lvl:1,who:"",fix:""};var key=r.t;
+    groups[key]=groups[key]||{r:r,ids:[],n:0,pages:[]};groups[key].n+=p.i[k];if(groups[key].ids.indexOf(k)<0)groups[key].ids.push(k);groups[key].pages.push({t:p.t,u:p.u,n:p.i[k]})}});
+  var list=Object.keys(groups).map(function(k){return groups[k]}).sort(function(a,b){return (b.r.lvl*100+b.n)-(a.r.lvl*100+a.n)});
+  var n=total(s), open=list.reduce(function(a,g){return a+(fixed[g.r.t]?0:g.n)},0);
+
+  document.getElementById("demo-meta").innerHTML='<a href="'+esc(s.url)+'" rel="noopener" target="_blank">'+esc(s.host)+'<span class="sr-only"> (opens in a new tab)</span></a> · '+s.pages.length+' public pages checked · '+esc(fmtDate(s.date));
+  document.getElementById("demo-stats").innerHTML=[
+    [open,"Open issues",n?(n-open)+" marked fixed":"Nothing flagged"],
+    [list.length,"Types of problems","Each one is usually a single fix"],
+    [clean(s)+" of "+s.pages.length,"Pages with no issues","From the automated check"],
+    [s.pdfs,"PDFs to review","Linked from the pages checked"]
+  ].map(function(t){return '<div class="stat card"><p class="stat-n">'+t[0]+'</p><p class="stat-l">'+t[1]+'</p><p class="stat-s">'+t[2]+'</p></div>'}).join("");
+
+  var box=document.getElementById("demo-issues");
+  if(!list.length){
+    box.innerHTML='<div class="card demo-empty"><h3>No issues flagged on these pages</h3><p>The automated check didn\'t find any problems on the '+s.pages.length+' pages we sampled. That\'s a strong start. A full review would still check the rest of the site, '+(s.pdfs?'the '+s.pdfs+' linked PDFs, ':'PDF documents, ')+'and how the site works with a keyboard and screen reader.</p></div>';
+  } else {
+    box.innerHTML=list.map(function(g,gi){
+      var r=g.r, sev=r.lvl>=3?'High impact':'Medium impact', ex=s.ex[g.ids[0]];
+      var id='fix-'+i+'-'+gi;
+      return '<article class="card issue'+(fixed[r.t]?' is-fixed':'')+'">'+
+        '<div class="issue-head"><h3>'+esc(r.t)+'</h3><span class="issue-n">'+g.n+(g.n===1?' instance':' instances')+'</span></div>'+
+        '<p class="issue-tags"><span class="tag '+(r.lvl>=3?'tag-high':'tag-med')+'">'+sev+'</span><span class="tag">WCAG '+esc(r.w)+'</span></p>'+
+        '<p><strong>Who it affects:</strong> '+esc(r.who)+'</p>'+
+        '<p><strong>How to fix:</strong> '+esc(r.fix)+'</p>'+
+        '<details><summary>Where we found it</summary><ul class="issue-where">'+g.pages.map(function(p){return '<li><a href="'+esc(p.u)+'" rel="noopener" target="_blank">'+esc(p.t)+'<span class="sr-only"> (opens in a new tab)</span></a> <span class="muted">('+p.n+')</span></li>'}).join("")+'</ul>'+
+        (ex?'<p class="issue-ex-l">Example from the page code:</p><pre class="issue-ex"><code>'+esc(ex)+'</code></pre>':'')+'</details>'+
+        '<label class="issue-done" for="'+id+'"><input type="checkbox" id="'+id+'" data-rule="'+esc(r.t)+'"'+(fixed[r.t]?' checked':'')+'> Mark as fixed</label>'+
+      '</article>';
+    }).join("");
+    box.querySelectorAll("input[data-rule]").forEach(function(cb){cb.addEventListener("change",function(){
+      var f=store("demo-fixed-"+s.host)||{}; if(cb.checked)f[cb.dataset.rule]=1; else delete f[cb.dataset.rule]; store("demo-fixed-"+s.host,f);
+      var keep=cb.id; render(i); var el=document.getElementById(keep); if(el)el.focus();
+    })});
+  }
+  document.getElementById("demo-pages").innerHTML=s.pages.map(function(p){var c=0;for(var k in p.i)c+=p.i[k];
+    return '<li><a href="'+esc(p.u)+'" rel="noopener" target="_blank">'+esc(p.t)+'<span class="sr-only"> (opens in a new tab)</span></a><span class="pg-badge '+(c?'pg-bad':'pg-ok')+'">'+(c?c+(c===1?' issue':' issues'):'No issues')+'</span></li>'}).join("");
+  Array.prototype.forEach.call(document.querySelectorAll("#demo-table tr"),function(tr){tr.classList.toggle("is-current",tr.dataset.i==String(i))});
+}
+
+var order=SITES.map(function(s,i){return i}).sort(function(a,b){return total(SITES[b])-total(SITES[a])});
+document.getElementById("demo-table").innerHTML=order.map(function(i){var s=SITES[i];
+  return '<tr data-i="'+i+'"><th scope="row">'+esc(s.name)+'<span class="muted demo-host">'+esc(s.host)+'</span></th><td>'+total(s)+'</td><td>'+clean(s)+' of '+s.pages.length+'</td><td>'+s.pdfs+'</td><td><button type="button" class="btn btn-ghost btn-sm" data-view="'+i+'">View<span class="sr-only"> '+esc(s.name)+'</span></button></td></tr>'}).join("");
+document.getElementById("demo-table").addEventListener("click",function(e){var b=e.target.closest("[data-view]");if(!b)return;sel.value=b.dataset.view;render(+b.dataset.view);
+  document.getElementById("demo-site").scrollIntoView({behavior:"smooth",block:"center"});sel.focus({preventScroll:true})});
+
+var start=store("demo-site"); sel.value=(start!==null&&SITES[start])?start:order[0];
+sel.addEventListener("change",function(){store("demo-site",+sel.value);render(+sel.value)});
+render(+sel.value);
+})();
+</script>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="index.html"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SiteComply</span></a>
+        <p>Accessibility compliance auditing, remediation and monitoring for Ontario municipalities and public sector organizations.</p>
+        <p>Ontario-based · Canadian-owned<br><a href="mailto:matt@sitecomply.ca">matt@sitecomply.ca</a></p>
+      </div>
+      <div><h2>Services</h2><ul>
+        <li><a href="index.html#services">Accessibility Audits</a></li>
+        <li><a href="index.html#services">Remediation Support</a></li>
+        <li><a href="index.html#services">Ongoing Monitoring</a></li>
+        <li><a href="index.html#services">Staff Training</a></li></ul></div>
+      <div><h2>Resources</h2><ul>
+        <li><a href="aoda-guide.html">AODA Guide</a></li>
+        <li><a href="wcag-overview.html">WCAG Overview</a></li>
+        <li><a href="compliance-checklist.html">Compliance Checklist</a></li>
+        <li><a href="resources.html">All resources</a></li></ul></div>
+      <div><h2>Company</h2><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="accessibility.html">Accessibility Statement</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <p style="margin:0">© <span data-year>2026</span> SiteComply. All rights reserved. Serving Ontario municipalities and public sector organizations.</p>
+      <div class="foot-tags" aria-label="Standards we audit against"><span>AODA</span><span>WCAG 2.0 AA</span><span>WCAG 2.1</span><span>WCAG 2.2</span></div>
+    </div>
+  </div>
+</footer>
+<script src="assets/main.js?v=202611042016" defer></script>
+</body>
+</html>

@@ -690,6 +690,12 @@ p = os.path.join(ROOT,"404.html"); s = open(p).read()
 s = s.replace('href="assets/','href="/assets/').replace('src="assets/','src="/assets/').replace('href="index.html','href="/index.html').replace('href="about.html','href="/about.html').replace('href="resources.html','href="/resources.html').replace('href="contact.html','href="/contact.html').replace('href="aoda-guide.html','href="/aoda-guide.html').replace('href="wcag-overview.html','href="/wcag-overview.html').replace('href="compliance-checklist.html','href="/compliance-checklist.html').replace('href="accessibility.html','href="/accessibility.html').replace('href="privacy.html','href="/privacy.html').replace('href="terms.html','href="/terms.html')
 open(p,"w").write(s)
 
+# ---------- Demo dashboard (unlisted, noindex) ----------
+import json as _json
+_demo = open(os.path.join(os.path.dirname(__file__),"demo_page.html")).read().replace("__DATA__", open(os.path.join(os.path.dirname(__file__),"demo-data.json")).read())
+page("demo.html", "Demo report | SiteComply", "See a sample SiteComply accessibility report based on real automated checks of Ontario government websites.", "", _demo)
+_p = os.path.join(ROOT,"demo.html"); _s = open(_p).read().replace('<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"', 1); open(_p,"w").write(_s)
+
 pages = ["","about.html","contact.html","resources.html","aoda-guide.html","wcag-overview.html","compliance-checklist.html","accessibility.html","privacy.html","terms.html"]
 open(os.path.join(ROOT,"sitemap.xml"),"w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{DOMAIN}/{p}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>\n" for p in pages) + "</urlset>\n")
 open(os.path.join(ROOT,"robots.txt"),"w").write(f"User-agent: *\nDisallow: /preview/\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n")

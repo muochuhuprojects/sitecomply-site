@@ -112,3 +112,6 @@
 
   var y = document.querySelectorAll('[data-year]'); y.forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
+
+// Prefill the scan form when arriving from the demo page (?url=...)
+(function(){try{var u=new URLSearchParams(location.search).get("url");var f=document.getElementById("scan-url");if(u&&f){f.value=u;}}catch(e){}})();
