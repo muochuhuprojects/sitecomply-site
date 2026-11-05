@@ -55,6 +55,7 @@
     if (url) url.addEventListener('blur', function () {
       var v = url.value.trim();
       if (v && !/^https?:\/\//i.test(v)) url.value = 'https://' + v;
+      if (url.value) url.setAttribute('aria-invalid', url.checkValidity() ? 'false' : 'true');
     });
 
     form.addEventListener('submit', function (e) {
