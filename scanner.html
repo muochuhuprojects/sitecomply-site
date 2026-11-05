@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-CA" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About the SiteComply scanner | SiteComply</title>
+<meta name="description" content="What SiteComplyBot is, how it tests public web pages for WCAG 2.0 AA accessibility, and how to contact us or opt out.">
+<link rel="canonical" href="https://sitecomply.ca/scanner.html">
+<meta name="theme-color" content="#f7f6f2">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SiteComply">
+<meta property="og:title" content="About the SiteComply scanner | SiteComply">
+<meta property="og:description" content="What SiteComplyBot is, how it tests public web pages for WCAG 2.0 AA accessibility, and how to contact us or opt out.">
+<meta property="og:url" content="https://sitecomply.ca/scanner.html">
+<meta property="og:image" content="https://sitecomply.ca/assets/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v=202611042047">
+
+
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="site-header">
+  <nav class="container nav" aria-label="Main">
+    <a class="logo" href="index.html" aria-label="SiteComply home"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SiteComply</span></a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links"><span class="sr-only">Menu</span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <ul class="nav-links" id="nav-links"><li><a href="index.html#services">Services</a></li><li><a href="index.html#how">How it works</a></li><li><a href="about.html">About</a></li><li><a href="resources.html">Resources</a></li><li><a href="contact.html">Contact</a></li><li class="nav-cta"><a class="btn btn-primary btn-sm" href="index.html#scan">Get a free scan</a></li></ul>
+  </nav>
+</header>
+<main id="main" tabindex="-1">
+
+<section class="page-hero"><div class="container">
+  <p class="kicker">For website owners</p>
+  <h1>About the SiteComply scanner</h1>
+  <p>If you saw <code>SiteComplyBot</code> in your website logs, this page explains what it is.</p>
+</div></section>
+<section class="section"><div class="container prose">
+  <h2>What it does</h2>
+  <p>SiteComplyBot tests public web pages for accessibility against WCAG 2.0 Level AA, the standard required by Ontario's Accessibility for Ontarians with Disabilities Act (AODA). It runs only when someone requests a free scan of a website, usually the website's own staff.</p>
+  <h2>How it behaves</h2>
+  <ul>
+    <li>It visits up to 25 public pages per scan, one page at a time with a pause between pages.</li>
+    <li>It follows your <code>robots.txt</code> rules. You can address it directly with <code>User-agent: SiteComplyBot</code>.</li>
+    <li>It never logs in, submits forms or tries to access anything private.</li>
+    <li>It identifies itself in the user agent as <code>SiteComplyBot/1.0 (+https://sitecomply.ca/scanner.html)</code>.</li>
+  </ul>
+  <h2>Questions or opting out</h2>
+  <p>Email <a href="mailto:matt@sitecomply.ca">matt@sitecomply.ca</a> and we'll respond promptly. You can also block it in <code>robots.txt</code>:</p>
+  <pre class="issue-ex"><code>User-agent: SiteComplyBot
+Disallow: /</code></pre>
+</div></section>
+
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="index.html"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0f6b5c"/><path d="M9 16.5l4.5 4.5L23 11.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>SiteComply</span></a>
+        <p>Accessibility compliance auditing, remediation and monitoring for Ontario municipalities and public sector organizations.</p>
+        <p>Ontario-based · Canadian-owned<br><a href="mailto:matt@sitecomply.ca">matt@sitecomply.ca</a></p>
+      </div>
+      <div><h2>Services</h2><ul>
+        <li><a href="index.html#services">Accessibility Audits</a></li>
+        <li><a href="index.html#services">Remediation Support</a></li>
+        <li><a href="index.html#services">Ongoing Monitoring</a></li>
+        <li><a href="index.html#services">Staff Training</a></li></ul></div>
+      <div><h2>Resources</h2><ul>
+        <li><a href="aoda-guide.html">AODA Guide</a></li>
+        <li><a href="wcag-overview.html">WCAG Overview</a></li>
+        <li><a href="compliance-checklist.html">Compliance Checklist</a></li>
+        <li><a href="resources.html">All resources</a></li></ul></div>
+      <div><h2>Company</h2><ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="accessibility.html">Accessibility Statement</a></li>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms of Use</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <p style="margin:0">© <span data-year>2026</span> SiteComply. All rights reserved. Serving Ontario municipalities and public sector organizations.</p>
+      <ul class="foot-tags" aria-label="Standards we audit against"><li>AODA</li><li>WCAG 2.0 AA</li><li>WCAG 2.1</li><li>WCAG 2.2</li></ul>
+    </div>
+  </div>
+</footer>
+<script src="assets/main.js?v=202611042047" defer></script>
+</body>
+</html>

@@ -19,7 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=202611042016">
+<link rel="stylesheet" href="assets/styles.css?v=202611042047">
+
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does AODA apply to my municipality?","acceptedAnswer":{"@type":"Answer","text":"Yes. All Ontario public sector organizations, including municipalities, school boards, hospitals, colleges and provincial agencies, must comply with the Integrated Accessibility Standards Regulation (IASR) under AODA. That includes meeting WCAG 2.0 Level AA on their public websites and web content."}},{"@type":"Question","name":"What is WCAG and which version applies?","acceptedAnswer":{"@type":"Answer","text":"WCAG (Web Content Accessibility Guidelines) is the international standard for web accessibility. Ontario's AODA currently mandates WCAG 2.0 Level AA. SiteComply also evaluates against WCAG 2.1 and 2.2, so your site is ready when the standard is updated and works better for everyone today."}},{"@type":"Question","name":"How long does an audit take?","acceptedAnswer":{"@type":"Answer","text":"A typical audit takes five to ten business days, depending on the size and complexity of your website. You receive a detailed report with prioritized findings and remediation guidance."}},{"@type":"Question","name":"What does the free scan include?","acceptedAnswer":{"@type":"Answer","text":"The free scan is an automated review of your homepage and key pages. It identifies common accessibility barriers and gives you a snapshot of your current compliance status, with no obligation. The scan covers only pages that are publicly available on your website."}},{"@type":"Question","name":"Is an automated scan enough to be compliant?","acceptedAnswer":{"@type":"Answer","text":"No. Automated tools reliably catch only a portion of WCAG issues. Our full audits combine automated scanning with manual testing using a keyboard and screen readers, which is how real residents experience your site."}},{"@type":"Question","name":"Do you check PDFs and other documents?","acceptedAnswer":{"@type":"Answer","text":"Yes. Documents posted on your website are web content under AODA. We review PDFs, Word files and forms for tagging, reading order, alternative text and contrast, and help your team fix or replace them."}},{"@type":"Question","name":"Can you work with our existing web vendor or CMS?","acceptedAnswer":{"@type":"Answer","text":"Yes. We work alongside your internal team or development partners on any platform, including eSolutions, Granicus (govAccess), WordPress, Drupal and custom builds. We provide code-level guidance and verify each fix."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"SiteComply","url":"https://sitecomply.ca","email":"matt@sitecomply.ca","areaServed":{"@type":"State","name":"Ontario"},"description":"Accessibility compliance audits, remediation and monitoring for Ontario municipalities and public sector organizations."}</script>
 </head>
@@ -159,12 +160,12 @@
   </div>
 </section>
 
-<section class="section" id="scan" aria-labelledby="scan-h">
+<section class="section" id="scan" aria-labelledby="scan-cta-h">
   <div class="container">
     <div class="cta">
       <div>
         <span class="kicker">Free site scan</span>
-        <h2 id="scan-h">Get your free site scan</h2>
+        <h2 id="scan-cta-h">Get your free site scan</h2>
         <p class="lede">Find out where your website stands against AODA and WCAG requirements. No cost, no commitment.</p>
         <p>The scan only reviews what's already public on your website, nothing behind a login, and collects no personal information.</p>
         <ul>
@@ -189,6 +190,8 @@
   </div>
   <div class="field"><label for="scan-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="scan-email" name="email" type="email" autocomplete="email" placeholder="jane@oakville.ca" required aria-describedby="scan-email-err"><p class="err" id="scan-email-err">Please enter a valid email address.</p></div>
   <div class="field"><label for="scan-url">Website URL <span class="req" aria-hidden="true">*</span></label><input id="scan-url" name="Website" type="url" inputmode="url" autocomplete="url" placeholder="https://oakville.ca" required aria-describedby="scan-url-err"><p class="err" id="scan-url-err">Please enter your website address, for example https://oakville.ca.</p></div>
+  <div class="field"><label for="scan-type">Type of organization</label><select id="scan-type" name="org_type"><option value="public-sector">Municipality or other public sector organization</option><option value="ontario-government">Government of Ontario or Legislative Assembly</option><option value="business">Business or non-profit</option><option value="other">Other</option></select></div>
+  
   <button class="btn btn-primary" type="submit">Request free scan</button>
   <div class="form-status" role="status" aria-live="polite" tabindex="-1"></div>
   <p class="form-note">No cost, no commitment. Public pages only.</p>
@@ -240,10 +243,10 @@
     </div>
     <div class="foot-bottom">
       <p style="margin:0">© <span data-year>2026</span> SiteComply. All rights reserved. Serving Ontario municipalities and public sector organizations.</p>
-      <div class="foot-tags" aria-label="Standards we audit against"><span>AODA</span><span>WCAG 2.0 AA</span><span>WCAG 2.1</span><span>WCAG 2.2</span></div>
+      <ul class="foot-tags" aria-label="Standards we audit against"><li>AODA</li><li>WCAG 2.0 AA</li><li>WCAG 2.1</li><li>WCAG 2.2</li></ul>
     </div>
   </div>
 </footer>
-<script src="assets/main.js?v=202611042016" defer></script>
+<script src="assets/main.js?v=202611042047" defer></script>
 </body>
 </html>

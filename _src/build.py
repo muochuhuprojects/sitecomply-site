@@ -6,6 +6,10 @@ DOMAIN = "https://sitecomply.ca"
 EMAIL = "matt@sitecomply.ca"
 WEB3FORMS_KEY = "124bda37-b104-4e7b-bd8f-b8b5fee1ab69"
 FORM_ACTION = "https://api.web3forms.com/submit"
+SCAN_FUNCTIONS = "https://rwbqjtasxqnycvujgwkc.supabase.co/functions/v1"
+# Turn on the live scanner by setting both of these (leave empty to keep using Web3Forms email only).
+SCAN_API = ""            # e.g. SCAN_FUNCTIONS + "/request-scan"
+TURNSTILE_SITEKEY = ""   # Cloudflare Turnstile site key
 TODAY = datetime.date.today()
 VER = datetime.datetime.now().strftime("%Y%m%d%H%M")
 UPDATED = TODAY.strftime("%B %-d, %Y")
@@ -69,7 +73,7 @@ FOOTER = f'''<footer class="site-footer">
     </div>
     <div class="foot-bottom">
       <p style="margin:0">© <span data-year>{TODAY.year}</span> SiteComply. All rights reserved. Serving Ontario municipalities and public sector organizations.</p>
-      <div class="foot-tags" aria-label="Standards we audit against"><span>AODA</span><span>WCAG 2.0 AA</span><span>WCAG 2.1</span><span>WCAG 2.2</span></div>
+      <ul class="foot-tags" aria-label="Standards we audit against"><li>AODA</li><li>WCAG 2.0 AA</li><li>WCAG 2.1</li><li>WCAG 2.2</li></ul>
     </div>
   </div>
 </footer>
@@ -99,6 +103,7 @@ def page(fname, title, desc, active, body, schema=""):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css?v={VER}">
+{('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>') if (TURNSTILE_SITEKEY and "cf-turnstile" in body) else ""}
 {schema}
 </head>
 <body>
@@ -113,7 +118,7 @@ def page(fname, title, desc, active, body, schema=""):
     with open(os.path.join(ROOT, fname), "w") as f: f.write(html)
 
 def scan_form(id_prefix="scan", heading="Request your free scan"):
-    return f'''<form class="form" data-sc-form action="{FORM_ACTION}" method="POST" novalidate aria-labelledby="{id_prefix}-h" data-success="Thanks, we&#39;ve received your request. We&#39;ll review your website and be in touch with your free scan report.">
+    return f'''<form class="form" data-sc-form action="{FORM_ACTION}" method="POST" novalidate aria-labelledby="{id_prefix}-h"{(' data-scan-api="'+SCAN_API+'"') if SCAN_API else ''} data-success="Thanks, we&#39;ve received your request. We&#39;ll review your website and be in touch with your free scan report.">
   <h3 id="{id_prefix}-h">{heading}</h3>
   <p class="hint">Fields marked <span class="req" aria-hidden="true">*</span><span class="sr-only">with an asterisk</span> are required.</p>
   <input type="hidden" name="access_key" value="{WEB3FORMS_KEY}">
@@ -127,6 +132,8 @@ def scan_form(id_prefix="scan", heading="Request your free scan"):
   </div>
   <div class="field"><label for="{id_prefix}-email">Work email <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-email" name="email" type="email" autocomplete="email" placeholder="jane@oakville.ca" required aria-describedby="{id_prefix}-email-err"><p class="err" id="{id_prefix}-email-err">Please enter a valid email address.</p></div>
   <div class="field"><label for="{id_prefix}-url">Website URL <span class="req" aria-hidden="true">*</span></label><input id="{id_prefix}-url" name="Website" type="url" inputmode="url" autocomplete="url" placeholder="https://oakville.ca" required aria-describedby="{id_prefix}-url-err"><p class="err" id="{id_prefix}-url-err">Please enter your website address, for example https://oakville.ca.</p></div>
+  <div class="field"><label for="{id_prefix}-type">Type of organization</label><select id="{id_prefix}-type" name="org_type"><option value="public-sector">Municipality or other public sector organization</option><option value="ontario-government">Government of Ontario or Legislative Assembly</option><option value="business">Business or non-profit</option><option value="other">Other</option></select></div>
+  {('<div class="cf-turnstile" data-sitekey="'+TURNSTILE_SITEKEY+'" data-theme="light"></div>') if TURNSTILE_SITEKEY else ''}
   <button class="btn btn-primary" type="submit">Request free scan</button>
   <div class="form-status" role="status" aria-live="polite" tabindex="-1"></div>
   <p class="form-note">No cost, no commitment. Public pages only.</p>
@@ -329,12 +336,12 @@ home = f'''
   </div>
 </section>
 
-<section class="section" id="scan" aria-labelledby="scan-h">
+<section class="section" id="scan" aria-labelledby="scan-cta-h">
   <div class="container">
     <div class="cta">
       <div>
         <span class="kicker">Free site scan</span>
-        <h2 id="scan-h">Get your free site scan</h2>
+        <h2 id="scan-cta-h">Get your free site scan</h2>
         <p class="lede">Find out where your website stands against AODA and WCAG requirements. No cost, no commitment.</p>
         <p>The scan only reviews what's already public on your website, nothing behind a login, and collects no personal information.</p>
         <ul>
@@ -624,6 +631,7 @@ a11y = f'''
 '''
 page("accessibility.html", "Accessibility Statement | SiteComply", "SiteComply's commitment to an accessible website, how to report barriers, and how to request alternate formats.", "", a11y)
 
+SCAN_PRIVACY = ('<p>Free scan requests (your name, organization, work email and website address) and scan results are stored in a secure database hosted by Supabase in Canada (Montreal). Only SiteComply can access them. Scans run on GitHub Actions, report emails are sent through Resend, and Cloudflare Turnstile checks that form submissions come from a person rather than a bot. We store a one-way coded version of your IP address, not the address itself, to prevent abuse of the free scan.</p>\n  ') if SCAN_API else ''
 privacy = f'''
 <section class="page-hero"><div class="container">
   <p class="crumbs"><a href="index.html">Home</a> / Privacy Policy</p>
@@ -643,7 +651,7 @@ privacy = f'''
   <h2>Cookies and analytics</h2>
   <p>This website does not use advertising cookies or tracking analytics. The compliance checklist saves your progress in your own browser's local storage. That information never leaves your device.</p>
   <h2>Service providers</h2>
-  <p>Form submissions are delivered to our inbox through Web3Forms, a form-processing service. Our website is hosted on GitHub Pages and fonts are served by Google Fonts. These providers may process technical data such as your IP address to deliver their services.</p>
+  {SCAN_PRIVACY}<p>Contact form submissions are delivered to our inbox through Web3Forms, a form-processing service. Our website is hosted on GitHub Pages and fonts are served by Google Fonts. These providers may process technical data such as your IP address to deliver their services.</p>
   <h2>Retention and your rights</h2>
   <p>We keep your information only as long as needed for the purpose you provided it. You can ask to see, correct or delete your information at any time by emailing <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
   <h2>Contact</h2>
@@ -690,13 +698,41 @@ p = os.path.join(ROOT,"404.html"); s = open(p).read()
 s = s.replace('href="assets/','href="/assets/').replace('src="assets/','src="/assets/').replace('href="index.html','href="/index.html').replace('href="about.html','href="/about.html').replace('href="resources.html','href="/resources.html').replace('href="contact.html','href="/contact.html').replace('href="aoda-guide.html','href="/aoda-guide.html').replace('href="wcag-overview.html','href="/wcag-overview.html').replace('href="compliance-checklist.html','href="/compliance-checklist.html').replace('href="accessibility.html','href="/accessibility.html').replace('href="privacy.html','href="/privacy.html').replace('href="terms.html','href="/terms.html')
 open(p,"w").write(s)
 
-# ---------- Demo dashboard (unlisted, noindex) ----------
-import json as _json
-_demo = open(os.path.join(os.path.dirname(__file__),"demo_page.html")).read().replace("__DATA__", open(os.path.join(os.path.dirname(__file__),"demo-data.json")).read())
-page("demo.html", "Demo report | SiteComply", "See a sample SiteComply accessibility report based on real automated checks of Ontario government websites.", "", _demo)
-_p = os.path.join(ROOT,"demo.html"); _s = open(_p).read().replace('<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"', 1); open(_p,"w").write(_s)
+# ---------- Demo, report and scanner pages ----------
+_here = os.path.dirname(__file__)
+def _noindex(fname):
+    _p = os.path.join(ROOT, fname); _s = open(_p).read().replace('<meta name="viewport"', '<meta name="robots" content="noindex">\n<meta name="viewport"', 1); open(_p, "w").write(_s)
+page("demo.html", "Demo report | SiteComply", "See a sample SiteComply accessibility report based on real automated WCAG 2.0 AA tests of Ontario government websites.", "",
+     open(os.path.join(_here, "demo_page.html")).read().replace("__VER__", VER))
+_noindex("demo.html")
+page("report.html", "Your accessibility report | SiteComply", "Your SiteComply WCAG 2.0 AA accessibility report.", "",
+     open(os.path.join(_here, "report_page.html")).read().replace("__VER__", VER).replace("__API__", SCAN_FUNCTIONS))
+_noindex("report.html")
+scanner_body = f'''
+<section class="page-hero"><div class="container">
+  <p class="kicker">For website owners</p>
+  <h1>About the SiteComply scanner</h1>
+  <p>If you saw <code>SiteComplyBot</code> in your website logs, this page explains what it is.</p>
+</div></section>
+<section class="section"><div class="container prose">
+  <h2>What it does</h2>
+  <p>SiteComplyBot tests public web pages for accessibility against WCAG 2.0 Level AA, the standard required by Ontario's Accessibility for Ontarians with Disabilities Act (AODA). It runs only when someone requests a free scan of a website, usually the website's own staff.</p>
+  <h2>How it behaves</h2>
+  <ul>
+    <li>It visits up to 25 public pages per scan, one page at a time with a pause between pages.</li>
+    <li>It follows your <code>robots.txt</code> rules. You can address it directly with <code>User-agent: SiteComplyBot</code>.</li>
+    <li>It never logs in, submits forms or tries to access anything private.</li>
+    <li>It identifies itself in the user agent as <code>SiteComplyBot/1.0 (+https://sitecomply.ca/scanner.html)</code>.</li>
+  </ul>
+  <h2>Questions or opting out</h2>
+  <p>Email <a href="mailto:{EMAIL}">{EMAIL}</a> and we'll respond promptly. You can also block it in <code>robots.txt</code>:</p>
+  <pre class="issue-ex"><code>User-agent: SiteComplyBot
+Disallow: /</code></pre>
+</div></section>
+'''
+page("scanner.html", "About the SiteComply scanner | SiteComply", "What SiteComplyBot is, how it tests public web pages for WCAG 2.0 AA accessibility, and how to contact us or opt out.", "", scanner_body)
 
-pages = ["","about.html","contact.html","resources.html","aoda-guide.html","wcag-overview.html","compliance-checklist.html","accessibility.html","privacy.html","terms.html"]
+pages = ["","about.html","contact.html","resources.html","aoda-guide.html","wcag-overview.html","compliance-checklist.html","accessibility.html","privacy.html","terms.html","scanner.html"]
 open(os.path.join(ROOT,"sitemap.xml"),"w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{DOMAIN}/{p}</loc><lastmod>{TODAY.isoformat()}</lastmod></url>\n" for p in pages) + "</urlset>\n")
 open(os.path.join(ROOT,"robots.txt"),"w").write(f"User-agent: *\nDisallow: /preview/\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\n")
 open(os.path.join(ROOT,"CNAME"),"w").write("sitecomply.ca\n")

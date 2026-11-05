@@ -1,0 +1,61 @@
+<section class="page-hero demo-hero">
+  <div class="container">
+    <p class="kicker">Free accessibility scan</p>
+    <h1 id="rep-title">Your accessibility report</h1>
+    <p class="lead">Results of automated tests against WCAG 2.0 Level AA, the web accessibility standard required by Ontario's AODA. Each issue is explained in plain language with who it affects and how to fix it.</p>
+  </div>
+</section>
+
+<section class="section demo">
+  <div class="container">
+    <div id="rep-admin" hidden></div>
+    <div id="rep-body" aria-live="polite"><p class="demo-sub">Loading your report…</p></div>
+    <div class="demo-try card" id="rep-cta" hidden>
+      <div>
+        <h2 class="demo-h2">Want help fixing these?</h2>
+        <p>We can walk your team through the results, test the things automated tools can't, and track your progress month to month.</p>
+      </div>
+      <div class="btn-row"><a class="btn btn-primary" href="contact.html">Book a walkthrough</a><a class="btn btn-ghost" href="mailto:matt@sitecomply.ca">Email Matt</a></div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/report.js?v=__VER__"></script>
+<script>
+(function(){
+  var API = "__API__", R = window.SCReport;
+  var q = new URLSearchParams(location.search), t = q.get("t") || "", k = q.get("k") || "";
+  var body = document.getElementById("rep-body"), admin = document.getElementById("rep-admin");
+  function fail(msg){ body.innerHTML = '<div class="card demo-empty"><h2 class="demo-h2">Report not available</h2><p>'+R.esc(msg)+' If you think this is a mistake, email <a href="mailto:matt@sitecomply.ca">matt@sitecomply.ca</a>.</p></div>'; }
+  if (!/^[a-f0-9]{48}$/.test(t)) return fail("This report link isn't valid.");
+  fetch(API + "/report?t=" + encodeURIComponent(t) + (k ? "&k=" + encodeURIComponent(k) : ""))
+    .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+    .then(function(x){
+      if (!x.ok) return fail(x.j.error || "We couldn't find this report.");
+      var res = x.j.results;
+      document.getElementById("rep-title").textContent = "Accessibility report for " + (x.j.org || res.host);
+      document.title = "Accessibility report for " + res.host + " | SiteComply";
+      R.render(body, res, { uid: "rep" });
+      document.getElementById("rep-cta").hidden = false;
+      if (x.j.approve) {
+        admin.hidden = false;
+        admin.innerHTML = '<div class="card rep-adminbar"><p><strong>Review mode.</strong> This report has not been sent yet. Only you can see it with this link.</p><div class="btn-row"><button type="button" class="btn btn-primary" data-act="approve">Send report to requester</button><button type="button" class="btn btn-ghost" data-act="reject">Don\'t send</button></div><p class="form-status" role="status" id="rep-admin-status"></p></div>';
+        admin.addEventListener("click", function(e){
+          var b = e.target.closest("[data-act]"); if (!b) return;
+          var act = b.getAttribute("data-act"), st = document.getElementById("rep-admin-status");
+          if (act === "reject" && !confirm("Mark this scan as not sent?")) return;
+          admin.querySelectorAll("button").forEach(function(x){ x.disabled = true; });
+          st.textContent = act === "approve" ? "Sending…" : "Saving…";
+          fetch(API + "/approve", { method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({ id: x.j.approve.id, s: x.j.approve.s, action: act }) })
+            .then(function(r){ return r.json(); })
+            .then(function(j){
+              if (j.error) { st.textContent = j.error; admin.querySelectorAll("button").forEach(function(x){ x.disabled = false; }); return; }
+              st.textContent = j.already ? "Already " + j.already + "." : (j.status === "sent" ? "Sent to " + j.to + "." : "Marked as not sent.");
+            })
+            .catch(function(){ st.textContent = "Something went wrong. Please try again."; admin.querySelectorAll("button").forEach(function(x){ x.disabled = false; }); });
+        });
+      }
+    })
+    .catch(function(){ fail("We couldn't load this report right now. Please try again in a minute."); });
+})();
+</script>

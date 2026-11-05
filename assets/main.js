@@ -33,7 +33,7 @@
     els.forEach(function (el) { io.observe(el); });
   } else { els.forEach(function (el) { el.classList.add('in'); }); }
 
-  // Forms -> FormSubmit -> matt@sitecomply.ca
+  // Forms -> SiteComply scanner (scan form) or Web3Forms -> matt@sitecomply.ca
   document.querySelectorAll('form[data-sc-form]').forEach(function (form) {
     var status = form.querySelector('.form-status');
     var submit = form.querySelector('button[type="submit"]');
@@ -65,18 +65,33 @@
       var data = new FormData(form);
       if (data.get('botcheck')) return;
       submit.disabled = true; var label = submit.textContent; submit.textContent = 'Sending…';
-      fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === 'false' || j.success === false) throw new Error(j.message || 'Request failed'); }); })
+      function viaWeb3Forms() {
+        return fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok || j.success === 'false' || j.success === false) throw new Error(j.message || 'Request failed'); }); });
+      }
+      // Free scan form: send to the SiteComply scanner; fall back to email delivery if it's unreachable.
+      var api = form.getAttribute('data-scan-api');
+      var send = !api ? viaWeb3Forms() : fetch(api, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({
+          name: data.get('Name'), org: data.get('Organization'), email: data.get('email'), url: data.get('Website'),
+          org_type: data.get('org_type'), botcheck: data.get('botcheck'), turnstile: data.get('cf-turnstile-response') }) })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) {
+          if (r.ok && j.ok) return;
+          if (r.status === 400 || r.status === 429) { var e = new Error(j.error || 'Please check the form.'); e.user = true; throw e; }
+          return viaWeb3Forms();
+        }); }, function () { return viaWeb3Forms(); });
+      send
         .then(function () {
           form.reset();
           status.className = 'form-status ok';
           status.textContent = form.getAttribute('data-success') || 'Thanks! We received your request and will be in touch within one business day.';
           status.focus();
         })
-        .catch(function () {
+        .catch(function (err) {
           status.className = 'form-status bad';
+          if (window.turnstile) try { window.turnstile.reset(); } catch (x) {}
+          if (err && err.user) { status.textContent = err.message; status.focus(); return; }
           var lines = [];
-          data.forEach(function (v, k) { if (['access_key','subject','from_name','botcheck'].indexOf(k) === -1 && v) lines.push(k + ': ' + v); });
+          data.forEach(function (v, k) { if (['access_key','subject','from_name','botcheck','cf-turnstile-response'].indexOf(k) === -1 && v) lines.push(k + ': ' + v); });
           var href = 'mailto:matt@sitecomply.ca?subject=' + encodeURIComponent(data.get('subject') || 'SiteComply enquiry') + '&body=' + encodeURIComponent(lines.join('\n'));
           status.innerHTML = 'We couldn\u2019t send your request just now. <a href="' + href + '">Send it by email instead</a> and your details will be filled in for you.';
           status.focus();
