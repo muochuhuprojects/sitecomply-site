@@ -8,8 +8,8 @@ WEB3FORMS_KEY = "124bda37-b104-4e7b-bd8f-b8b5fee1ab69"
 FORM_ACTION = "https://api.web3forms.com/submit"
 SCAN_FUNCTIONS = "https://rwbqjtasxqnycvujgwkc.supabase.co/functions/v1"
 # Turn on the live scanner by setting both of these (leave empty to keep using Web3Forms email only).
-SCAN_API = ""            # e.g. SCAN_FUNCTIONS + "/request-scan"
-TURNSTILE_SITEKEY = ""   # Cloudflare Turnstile site key
+SCAN_API = SCAN_FUNCTIONS + "/request-scan"
+TURNSTILE_SITEKEY = "0x4AAAAAAF0X5pv9liAVPD5W"   # Cloudflare Turnstile site key (public)
 TODAY = datetime.date.today()
 VER = datetime.datetime.now().strftime("%Y%m%d%H%M")
 UPDATED = TODAY.strftime("%B %-d, %Y")
